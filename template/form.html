@@ -1,0 +1,36 @@
+# extends "base_form.html"
+# block body
+  <div class="form-container">
+    <h4>Edit yout talk information here</h4>
+    <form method="POST" action="{{action}}" enctype="multipart/form-data">
+      <div class="input-field">
+        <input type="text" id="title" name="title" required value="{{obj.title}}">
+        <label for="talk-title">Title of Talk</label>
+      </div>
+      <div class="input-field">
+        <input type="text" id="authors" name="authors" required value="{{obj.authors}}">
+        <label for="authors">Authors</label>
+      </div>
+      <div class="input-field">
+        <input type="text" id="presented_by" name="presented_by" required value="{{obj.presented_by}}">
+        <label for="presented-by">Presented by</label>
+      </div>
+      <div class="input-field">
+        <div class="file-field">
+          <div class="btn">
+            <span>Upload</span>
+            <input type="file" id="abstract" name="abstract">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Your abstract (pdf file)">
+          </div>
+        </div>
+      </div>
+      <div class="input-field">
+        <input type="submit" value="Submit">
+      </div>
+    </form>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+# endblock
