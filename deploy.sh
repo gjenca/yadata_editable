@@ -9,7 +9,6 @@ CODEDIR=/usr/local/lib/$PROJECT
 rm -r $CODEDIR
 #rm -r $STATICDIR
 mkdir -pv $CODEDIR
-mkdir -pv $CODEDIR/template
 #mkdir -pv $STATICDIR/static
 cp -rvf template $CODEDIR/template
 cp -vf main.py $CODEDIR
