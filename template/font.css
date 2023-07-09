@@ -1,0 +1,48 @@
+
+/* General Styles */
+.form-container {
+  max-width: 600px; /* Increased width */
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 30px; /* Increased margin-bottom for more spacing */
+}
+
+.label {
+  display: block;
+  margin-bottom: 10px; /* Increased margin-bottom for more spacing */
+  font-weight: bold;
+  font-size: 20px; /* Increased font-size */
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px; /* Increased padding for more space around the input field */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 18px; /* Increased font-size */
+}
+
+/* Button Styles */
+.submit-button {
+  display: inline-block;
+  padding: 12px 24px; /* Increased padding for more space around the button */
+  background-color: #4CAF50;
+  color: #fff;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px; /* Increased font-size */
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}
+
+/* Error Styles */
+.error {
+  color: red;
+  margin-top: 10px; /* Increased margin-top for more spacing */
+}

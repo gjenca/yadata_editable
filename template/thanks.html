@@ -1,8 +1,36 @@
 # extends "base.html"
 # block body
-<h2>Thank you for submitting the data</h2>
-<div>
+<h1>Thank you for submitting the data about the talk. </h1>
+<h2>Check the following data, please.</h2>
 <p>
-Return to the <a href="https://math.sk/ssaos2023/">SSAOS 2023 page</a>
-</div>
+<h3>You submitted this:</h3>
+<ul>
+# for key in ['title','presented_by','coauthors']
+<li> {{key}} = {{obj[key]}}
+# endfor
+</ul>
+<h3>Abstract</h3>
+<ul>
+# if not obj.abstract_uploaded
+<li>You did not upload abstract in the current form submission.</li>
+# if have_abstract
+<li>However, you uploaded an abstract previously,
+the length of the abstract is {{abstract_length}} bytes.
+</li>
+# else
+<li>It appears that you did not upload an abstract previously.</li>
+# endif
+# else
+<li>You uploaded abstract in the current form submission.</li>
+<li>The upload length was {{abstract_length}} bytes.</li>
+# endif
+</ul>
+<h3>You may now:</h3>
+<ol>
+<li>Return back and correct the data <a href="{{correct_url}}">in the form</a></li>
+# if have_abstract:
+<li> View the abstract <a href="{{abstract_url}}">here</a></li>
+# endif
+<li>Return to the <a href="https://math.sk/ssaos2023/">SSAOS 2023 page</a></li>
+</ol>
 # endblock
