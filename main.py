@@ -16,7 +16,7 @@ if socket.gethostname()=='www-kmadg':
     TEMPLATE_DIR='/usr/local/lib/yadata_editable/template'
     def my_url_for(*args,**kwargs):
 
-        catch=url_for(*argd,**kwargs)
+        catch=url_for(*args,**kwargs)
         hlist=catch.split('/')
         hlist[0]='https:'
         # 1 ''
