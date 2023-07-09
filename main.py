@@ -6,7 +6,7 @@ import shutil
 import socket
 
 import yaml
-from flask import Flask,abort,request,redirect,flash,my_url_for,Response
+from flask import Flask,abort,request,redirect,flash,url_for,Response
 from jinja2 import Environment,FileSystemLoader
 app = Flask(__name__)
 app.secret_key='pb3wuD31NCwnQ0CQP4rUAZ/x0OU'
