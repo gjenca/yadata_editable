@@ -17,11 +17,7 @@ if socket.gethostname()=='www-kmadg':
     def my_url_for(*args,**kwargs):
 
         catch=url_for(*args,**kwargs)
-        hlist=catch.split('/')
-        hlist[0]='https:'
-        # 1 ''
-        # 2 'math.sk'
-        hlist[3:3]=['ssaos_abstracts']
+        hlist[0:0]=['ssaos_abstracts']
         return '/'.join(hlist)
 else:
     DATADIR='./data'
