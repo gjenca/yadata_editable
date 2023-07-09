@@ -6,7 +6,7 @@ import shutil
 import socket
 
 import yaml
-from flask import Flask,abort,request,redirect,flash,url_for,Response
+from flask import Flask,abort,request,redirect,flash,my_url_for,Response
 from jinja2 import Environment,FileSystemLoader
 app = Flask(__name__)
 app.secret_key='pb3wuD31NCwnQ0CQP4rUAZ/x0OU'
@@ -14,9 +14,19 @@ app.secret_key='pb3wuD31NCwnQ0CQP4rUAZ/x0OU'
 if socket.gethostname()=='www-kmadg':
     DATADIR='/var/lib/ssaos_abstracts'
     TEMPLATE_DIR='/usr/local/lib/yadata_editable/template'
+    def my_url_for(*args,**kwargs):
+
+        catch=url_for(*argd,**kwargs)
+        hlist=catch.split('/')
+        hlist[0]='https:'
+        # 1 ''
+        # 2 'math.sk'
+        hlist[3:3]=['ssaos_abstracts']
+        return '/'.join(hlist)
 else:
     DATADIR='./data'
     TEMPLATE_DIR='./template'
+    my_url_for=url_for
 
 env=Environment(loader=FileSystemLoader(TEMPLATE_DIR),
     line_statement_prefix='#',
@@ -53,8 +63,8 @@ def thanks(objid):
         abstract_length=-1
     t=env.get_template('thanks.html')
     return t.render(obj=obj,have_abstract=have_abstract,abstract_length=abstract_length,
-                    correct_url=url_for('editable_dict',objid=objid),
-                    abstract_url=url_for('abstract',objid=objid),
+                    correct_url=my_url_for('editable_dict',objid=objid),
+                    abstract_url=my_url_for('abstract',objid=objid),
                     )
 
 @app.route('/data/<objid>',methods=["GET","POST"])
@@ -88,7 +98,7 @@ def editable_dict(objid):
         f.write(yaml.dump(obj))
         f.close()
         shutil.move(f.name,yaml_fnm)
-        return redirect(url_for('thanks',objid=objid))
+        return redirect(my_url_for('thanks',objid=objid))
     return t.render(obj=obj,action=request.url,error=error)
 #app.run()
 
