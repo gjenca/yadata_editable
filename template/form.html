@@ -25,11 +25,24 @@
       </div>
       <div class="input-field">
         <div class="file-field">
-          <div class="btn">
-            <span>If you wish, you may upload a LaTeX abstract here (max. 2 pages).
-	    Please, use <a href="https://raw.githubusercontent.com/gjenca/ssaos_abstract_template/main/abstract.tex">this template</a> for your abstract.
-	    </span>
-          </div>
+# if have_abstract
+<ul>
+<li>You uploaded an abstract previously,
+the length of the abstract is {{abstract_length}} bytes.</li>
+<li>
+You may view the abstract <a href="{{abstract_url}}">here</a>.</li>
+<li>You may upload a new version of the abstract,
+it will replace the current one.
+</li>
+</ul>
+# else
+<ul>
+<li>If you wish, you may upload a LaTeX abstract here (max. 2 pages).</li>
+<li>
+Please, use <a href="https://raw.githubusercontent.com/gjenca/ssaos_abstract_template/main/abstract.tex">this template</a> for your abstract.
+</li>
+</ul>
+# endif
           <div class="file-path-wrapper">
             <input class="file-path validate" type="text" placeholder="Your abstract (tex file)">
           </div>

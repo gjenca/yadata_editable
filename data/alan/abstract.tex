@@ -1,51 +1,17 @@
 \documentclass{amsart}
-\newtheorem{proposition}{Proposition}
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}
+\pagestyle{empty}
+\usepackage{pstricks}
+\usepackage{pst-node}
 \begin{document}
-\begin{definition}
-\label{def:minimal}
-Let $x\in B(M)$.
-We say that an $M$-chain representation $(x_i)_{i=1}^{2n}$ 
-of $x$ is minimal iff
-\begin{enumerate}
-\item[(a)] For all $2\leq i\leq n$, 
-$(x_{2i}\ominus x_{2i-1})\wedge(x_{2i-1}\ominus x_{2i-2})\neq0$ and,
-\item[(b)] if $n>0$, $(x_2\ominus x_1)\wedge x_1\neq 0$.
-\end{enumerate}
-\end{definition}
-\begin{proposition}
-Every $x\in B(M)$ has a minimal $M$-chain representation.
-\end{proposition}
-\begin{proof}
-Suppose that $x$ has an $M$-chain representation $(x_i)_{i=1}^{2n}$.
-We shall apply induction with respect to $n$. If $n=0$, there is nothing to prove.
-
-Suppose that $n>0$. If $(x_i)_{i=1}^{2n}$ is minimal, there is nothing to prove.
-Otherwise, one of the conditions (a),(b) of Definition \ref{def:minimal} is not
-satisfied.
-
-Suppose that (a) is not satisfied. Then there is $2\leq i\leq n$ such that
-$(x_{2i}\ominus x_{2i-1})\wedge(x_{2i-1}\ominus x_{2i-2})=0$. Consider the
-element $y=x_{2i-2}\oplus(x_{2i}\ominus x_{2i-1})$.
-Clearly, $x_{2i-1}\vee y=x_{2i}$ and $x_{2i-1}\wedge y=x_{2i-2}$.
-By elementary Boolean calculus, this implies
-that $x_{2i}+x_{2i-1}=y+x_{2i-2}$ and
-$$
-x_{2i}+x_{2i-1}+x_{2i-2}+x_{2i-3}=y+x_{2i-2}+x_{2i-2}+x_{2i-3}=y+x_{2i-2}
-$$.
-Replacing the quadruple $(x_{2i},\dots,x_{2i-3})$ in $(x_i)_{i=1}^{2n}$
-by $(y,x_{2i-2})$ shows that $x$ admits an $M$-chain representation
-of length $2(n-1)$. By induction hypothesis, $x$ has a minimal
-$M$-chain representation.
-
-Suppose that (a) is satisfied and (b) is not. Similarly as in the
-previous part of the proof, we can replace $(x_1,x_2)$ by 
-$(0,x_2\ominus x_1)$, the resulting $M$-chain representation is then minimal.
-
-\end{proof}
-\begin{proposition}
-Let $x\in B(M)$. Any two minimal $M$-chain representations of $x$ have the
-same length.
-\end{proposition}
+\thispagestyle{empty}
+\noindent
+$
+\begin{array}{ccc}
+\Rnode{a}{2^{(2^A)}} & \qquad & \Rnode{E}{E}\\[3em]
+\Rnode{b}{2^{(2^B)}} 
+\end{array}
+\ncline[nodesep=3pt,arrows=->,linewidth=0.5pt]{a}{E}\naput{\alpha_A}
+\ncline[nodesep=3pt,arrows=->,linewidth=0.5pt]{a}{b}\nbput{g^A_B}
+\ncline[nodesep=3pt,arrows=->,linewidth=0.5pt]{b}{E}\trput{\alpha_B}
+$
 \end{document}
