@@ -1,6 +1,6 @@
 # extends "base.html"
 # block body
-<h1>Thank you for submitting the data about the talk. </h1>
+<h1>Thank you for submitting the data about your talk. </h1>
 <h2>Check the following data, please.</h2>
 <p>
 <h3>You submitted this:</h3>
@@ -12,7 +12,7 @@
 <h3>Abstract</h3>
 <ul>
 # if not obj.abstract_uploaded
-<li>You did not upload abstract in the current form submission.</li>
+<li>You did not upload an abstract.</li>
 # if have_abstract
 <li>However, you uploaded an abstract previously,
 the length of the abstract is {{abstract_length}} bytes.
