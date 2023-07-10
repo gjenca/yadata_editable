@@ -1,8 +1,12 @@
 
 /* General Styles */
 .form-container {
-  max-width: 600px; /* Increased width */
+  max-width: 40em; /* Increased width */
   margin: 0 auto;
+  background-color: #9df;
+  padding: 2em;
+  border: 1px solid black;
+  border-radius: 4px;
 }
 
 .form-group {
@@ -18,10 +22,14 @@
 
 .input-field {
   width: 100%;
-  padding: 12px; /* Increased padding for more space around the input field */
-  border: 1px solid #ccc;
+  padding: 0.5em; /* Increased padding for more space around the input field */
+  border: 1px solid black;
   border-radius: 4px;
   font-size: 18px; /* Increased font-size */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 /* Button Styles */

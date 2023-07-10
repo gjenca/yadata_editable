@@ -4,6 +4,7 @@ import os
 import tempfile
 import shutil
 import socket
+import unicodemail
 
 import yaml
 from flask import Flask,abort,request,redirect,flash,url_for,Response
@@ -11,7 +12,9 @@ from jinja2 import Environment,FileSystemLoader
 app = Flask(__name__)
 app.secret_key='pb3wuD31NCwnQ0CQP4rUAZ/x0OU'
 
-if socket.gethostname()=='www-kmadg':
+DEPLOYED=(socket.gethostname()=='www-kmadg')
+
+if DEPLOYED:
     DATADIR='/var/lib/ssaos_abstracts'
     TEMPLATE_DIR='/usr/local/lib/yadata_editable/template'
 else:
@@ -52,11 +55,26 @@ def thanks(objid):
     except FileNotFoundError:
         have_abstract=False
         abstract_length=-1
-    t=env.get_template('thanks.html')
-    return t.render(obj=obj,have_abstract=have_abstract,abstract_length=abstract_length,
+    t_html=env.get_template('thanks.html')
+    t_txt=env.get_template('thanks.txt')
+    thanks_html=t_html.render(obj=obj,have_abstract=have_abstract,abstract_length=abstract_length,
                     correct_url=url_for('editable_dict',objid=objid),
                     abstract_url=url_for('abstract',objid=objid),
                     )
+    if DEPLOYED:
+        thanks_txt=t_txt.render(obj=obj,have_abstract=have_abstract,abstract_length=abstract_length,
+                        correct_url=url_for('editable_dict',objid=objid),
+                        abstract_url=url_for('abstract',objid=objid),
+                        )
+        unicodemail.send(
+            from_='noreply@math.sk',
+            to='ssaos2023@math.sk',
+            cc='',
+            subject=f'SSAOS 2023 -- {obj.participant} updated the talk information',
+            message=thanks_txt,
+            html=thanks_html
+        )
+    return thanks_html
 
 @app.route('/data/<objid>',methods=["GET","POST"])
 def editable_dict(objid):

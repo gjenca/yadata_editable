@@ -1,0 +1,21 @@
+This was submitted:
+# for key in ['title','presented_by','coauthors']
+{{key}} = {{obj[key]}}
+# endfor
+
+Abstract:
+# if not obj.abstract_uploaded
+The participant did not upload abstract in the current form submission.
+# if have_abstract
+However, he/she uploaded an abstract previously,
+the length of the abstract is {{abstract_length}} bytes.
+# else
+It appears that he/she did not upload an abstract previously.
+# endif
+# else
+The participant uploaded abstract in the current form submission.
+The upload length was {{abstract_length}} bytes.
+# endif
+# if have_abstract
+View the abstract here: {{abstract_url}}
+# endif
