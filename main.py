@@ -70,7 +70,7 @@ def thanks(objid):
             from_='noreply@math.sk',
             to='gejza.jenca@gmail.com',
             cc='',
-            subject=f'SSAOS 2023 -- {obj.participant} updated the talk information',
+            subject=f'SSAOS 2023 -- {obj["participant"]} updated the talk information',
             message=thanks_txt,
             html=thanks_html
         )
