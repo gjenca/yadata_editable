@@ -17,5 +17,5 @@ The participant uploaded abstract in the current form submission.
 The upload length was {{abstract_length}} bytes.
 # endif
 # if have_abstract
-View the abstract here: {{abstract_url}}
+View the abstract here: https://math.sk/ssaos_abstracts/{{abstract_url}}
 # endif
