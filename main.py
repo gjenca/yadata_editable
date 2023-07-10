@@ -68,7 +68,7 @@ def thanks(objid):
                         )
         unicodemail.send(
             from_='noreply@math.sk',
-            to='ssaos2023@math.sk',
+            to='gejza.jenca@gmail.com',
             cc='',
             subject=f'SSAOS 2023 -- {obj.participant} updated the talk information',
             message=thanks_txt,
