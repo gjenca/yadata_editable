@@ -35,7 +35,7 @@ def abstract(objid):
             abstract=f.read()
     except FileNotFoundError:
         abort(404)
-    return Response(abstract,content_type='text/plain')
+    return Response(abstract,content_type='text/plain; charset=utf-8')
 
 @app.route('/thanks/<objid>')
 def thanks(objid):
