@@ -157,7 +157,7 @@ def all_data():
             abstract=None
         obj['abstract']=abstract
         data.append(obj)
-    yaml_data=yaml.dump(data)
+    yaml_data=yaml.dump_all(data)
     return Response(yaml_data,
                     mimetype='text/vnd.yaml',
                     headers={'Content-disposition': 'attachment; filename=talks.yaml'}
