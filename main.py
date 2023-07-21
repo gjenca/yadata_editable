@@ -5,6 +5,7 @@ import tempfile
 import shutil
 import socket
 import unicodemail
+import glob
 
 import yaml
 from flask import Flask,abort,request,redirect,flash,url_for,Response
@@ -12,6 +13,7 @@ from jinja2 import Environment,FileSystemLoader
 
 def construct_yaml_str(self, node):
     return self.construct_scalar(node)
+
 
 # Override the default string handling function
 # to always return unicode objects
@@ -43,11 +45,19 @@ env=Environment(loader=FileSystemLoader(TEMPLATE_DIR),
     extensions=['jinja2.ext.loopcontrols'],
 )
 
+def yaml_fnm(objid):
+
+    return f'{DATADIR}/{objid}/data.yaml'
+
+def abstract_fnm(objid):
+
+    return f'{DATADIR}/{objid}/abstract.tex'
+
+
 @app.route('/abstract/<objid>')
 def abstract(objid):
-    abstract_filename=f'{DATADIR}/{objid}/abstract.tex'
     try:
-        with open(abstract_filename) as f:
+        with open(abstract_fnm(objid)) as f:
             abstract=f.read()
     except FileNotFoundError:
         abort(404)
@@ -56,16 +66,13 @@ def abstract(objid):
 @app.route('/thanks/<objid>')
 def thanks(objid):
 
-    yaml_fnm=f'{DATADIR}/{objid}/data.yaml'
-
-    abstract_filename=f'{DATADIR}/{objid}/abstract.tex'
     try:
-        with open(yaml_fnm) as f:
+        with open(yaml_fnm(objid)) as f:
             obj=yaml.load(f,Loader=yaml.Loader)
     except FileNotFoundError:
         abort(404)
     try:
-        st=os.stat(abstract_filename)
+        st=os.stat(abstract_fnm(objid))
         have_abstract=True
         abstract_length=st.st_size
     except FileNotFoundError:
@@ -96,16 +103,14 @@ def thanks(objid):
 def editable_dict(objid):
 
     error=None
-    yaml_fnm=f'{DATADIR}/{objid}/data.yaml'
-    abstract_filename=f'{DATADIR}/{objid}/abstract.tex'
     t=env.get_template('form.html')
     try:
-        with open(yaml_fnm) as f:
+        with open(yaml_fnm(objid)) as f:
             obj=yaml.load(f,Loader=yaml.Loader)
     except FileNotFoundError:
         abort(404)
     try:
-        st=os.stat(abstract_filename)
+        st=os.stat(abstract_fnm(objid))
         have_abstract=True
         abstract_length=st.st_size
     except FileNotFoundError:
@@ -125,17 +130,37 @@ def editable_dict(objid):
                     return t.render(obj=obj,action=request.url,error=error)
                 else:
                     obj['abstract_uploaded']=True
-                    file.save(abstract_filename)
+                    file.save(abstract_fnm(objid))
         f=tempfile.NamedTemporaryFile(delete=False,mode='w')
         f.write(yaml.dump(obj,allow_unicode=True))
         f.close()
-        shutil.move(f.name,yaml_fnm)
+        shutil.move(f.name,yaml_fnm(objid))
         return redirect(url_for('thanks',objid=objid))
     return t.render(obj=obj,
                     error=error,
                     have_abstract=have_abstract,
                     abstract_length=abstract_length,
                     abstract_url=url_for('abstract',objid=objid)
+                    )
+
+@app.route('/data_yaml')
+def all_data():
+
+    data=[]
+    for objid in os.listdir(DATADIR):
+        with open(yaml_fnm(objid)) as f:
+            obj=yaml.load(f,Loader=yaml.Loader)
+        try:
+            with open(abstract_fnm(objid)) as f:
+                abstract=f.read()
+        except FileNotFoundError:
+            abstract=None
+        d={'obj':obj,'abstract':abstract}
+        data.append(d)
+    yaml_data=yaml.dump(data)
+    return Response(yaml_data,
+                    mimetype='text/vnd.yaml',
+                    headers={'Content-disposition': 'attachment; filename=talks.yaml'}
                     )
 
 #app.run()
