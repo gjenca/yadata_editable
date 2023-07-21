@@ -155,8 +155,8 @@ def all_data():
                 abstract=f.read()
         except FileNotFoundError:
             abstract=None
-        d={'obj':obj,'abstract':abstract}
-        data.append(d)
+        obj['abstract']=abstract
+        data.append(obj)
     yaml_data=yaml.dump(data)
     return Response(yaml_data,
                     mimetype='text/vnd.yaml',
