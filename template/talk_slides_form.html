@@ -1,0 +1,47 @@
+# extends "base_form.html"
+# block body
+# if error
+  <div class="error">
+  <h2>
+  {{error}}
+  </h2>
+  </div>
+# endif
+  <div class="form-container">
+    <h2>Please, upload your presentation PDF file here</h2>
+    <form method="POST" enctype="multipart/form-data">
+       	<ul>
+	<li><b>Talk:</b>{{obj.title}}</li>
+	<li><b>Presented by:</b>{{obj.presented_by}}</li>
+	</ul>
+      <div class="input-field">
+        <div class="file-field">
+# if have_slides
+<ul>
+<li>You uploaded a presentation PDF previously,
+the length of the file is {{slides_length}} bytes.</li>
+<li>
+You may download the PDF file <a href="{{slides_url}}">here</a>.</li>
+<li>You may upload a new version of your presentation PDF file,
+it will replace the current one.
+</li>
+</ul>
+# else
+<ul>
+<li>Upload the presenation PDF here</li>
+</ul>
+# endif
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Your presentation PDF file">
+          </div>
+            <input type="file" id="slides_pdf" name="slides_pdf" required="required">
+        </div>
+      </div>
+      <div class="input-field">
+        <input type="submit" value="Submit">
+      </div>
+    </form>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+# endblock

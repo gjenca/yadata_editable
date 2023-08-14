@@ -54,3 +54,12 @@
   color: red;
   margin-top: 10px; /* Increased margin-top for more spacing */
 }
+
+fieldset {
+	margin:1em;
+}
+
+p.info {
+	font-style:italic;
+}
+

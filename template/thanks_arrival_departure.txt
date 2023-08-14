@@ -1,0 +1,7 @@
+{{obj.first_names}} {{obj.surname}} submitted the arrival/departure data
+This was submitted:
+# for key in ['arrival','arrival_other_val','departure','arr_dep_remarks']
+# if obj[key]
+{{key}} = {{obj[key]}}
+# endif
+# endfor

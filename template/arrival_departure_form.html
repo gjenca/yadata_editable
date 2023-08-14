@@ -1,0 +1,59 @@
+# extends "base_form.html"
+# block body
+# if error
+  <div class="error">
+  <h2>
+  {{error}}
+  </h2>
+  </div>
+# endif
+  <div class="form-container">
+    <h2>Arrival/departure information</h2>
+    <h3>{{obj.first_names}} {{obj.surname}}
+    <form method="POST" enctype="multipart/form-data">
+      <fieldset>
+      <legend>Select arrival time at the railway stop Stará Lesná on Saturday</legend>
+      <p class="info">
+      We are planning to arrange a car to assist with transporting your luggage from the railway stop to the hotel.
+      </p>
+      <ul style="list-style-type:none">
+<li>      <input id="15_11" type="radio" name="arrival" value="15_11"> <label for="15_11">Saturday 15:11</label></li>
+<li>      <input id="16_11" type="radio" name="arrival" value="16_11"> <label for="16_11">Saturday 16:11</label></li>
+<li>      <input id="17_11" type="radio" name="arrival" value="17_11"> <label for="17_11">Saturday 17:11</label></li>
+<li>      <input id="18_11" type="radio" name="arrival" value="18_11"> <label for="18_11">Saturday 18:11</label></li>
+<li>      <input id="19_11" type="radio" name="arrival" value="19_11"> <label for="19_11">Saturday 19:11</label></li>
+<li>	  <input id="any_arriv" type="radio" name="arrival" value="any_arriv"> <label for="any_arriv">One of the above, but I do not know yet which one.</label></li>
+<li>	  <input id="none_arriv" type="radio" name="arrival" value="none_arriv"> <label for="none">None of the above.</label></li>
+<li>      <input id="other_arriv" type="radio" name="arrival" value="other_arriv"> <label for="other">other, please specify: </label><input id="arrival_other_val" type="text" name="arrival_other_val" value="{{obj.arrival_other_val}}"></li>
+      </fieldset>
+      <fieldset>
+      <legend>Select train for your departure on Friday from Poprad</legend>
+      <p class="info">
+     We are making arrangements to provide a bus from the hotel to Poprad on Friday after the conclusion of the conference. 
+     </p>
+      <ul style="list-style-type:none">
+<li>      <input id="BA_13_15" type="radio" name="departure" value="BA_13_15"> <label for="BA_13_15">13:15 IC 522 Poprad → Bratislava</label></li>
+<li>      <input id="KE_13_41" type="radio" name="departure" value="KE_13_41"> <label for="KE_13_41">13:41 Ex 605 Poprad → Košice</label></li>
+<li>      <input id="BA_14_25" type="radio" name="departure" value="BA_14_25"> <label for="BA_14_25">14:25 Ex 608 Poprad → Bratislava</label></li>
+<li>      <input id="KE_14_57" type="radio" name="departure" value="KE_14_57"> <label for="KE_14_57">14:57 RJ 1003 Poprad → Košice</label></li>
+<li>      <input id="PR_15_29" type="radio" name="departure" value="PR_15_29"> <label for="PR_15_29">15:29 SC 240 Poprad → Ostrava → Praha</label></li>
+<li>	  <input id="any_depart" type="radio" name="departure" value="any_depart"> <label for="any_depart">One of the above, but I do not know yet which one.</label></li>
+<li>	  <input id="none_depart" type="radio" name="departure" value="none_depart"> <label for="none">None of the above.</label></li>
+	</ul>
+      </fieldset>
+      <fieldset>
+	<label>Additional information:</label>
+	<input id="arr_dep_remarks" type="text" name="arr_dep_remarks" value="{{obj.arr_dep_remarks}}"> 
+      </fieldset>
+      <fieldset>
+        <input type="submit" value="Submit">
+      </fieldset>
+    </form>
+# if obj.arrival
+    <script>
+    document.getElementById("{{obj.arrival}}").checked=true;
+    document.getElementById("{{obj.departure}}").checked=true;
+    </script>
+# endif
+  </div>
+# endblock
