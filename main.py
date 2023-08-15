@@ -162,7 +162,7 @@ def thanks_arrival_departure(objid):
             from_='noreply@math.sk',
             to='ssaos2023@math.sk',
             cc='',
-            subject=f'SSAOS 2023 -- {obj["participant"]} submitted arrival/departure info',
+            subject=f'SSAOS 2023 -- {obj["_key"]} submitted arrival/departure info',
             message=thanks_txt,
             html=thanks_html
         )
@@ -221,7 +221,7 @@ def thanks(objid):
             from_='noreply@math.sk',
             to='gejza.jenca@gmail.com',
             cc='',
-            subject=f'SSAOS 2023 -- {obj["_key"]} updated the talk information',
+            subject=f'SSAOS 2023 -- {obj["participant"]} updated the talk information',
             message=thanks_txt,
             html=thanks_html
         )
