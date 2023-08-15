@@ -3,6 +3,6 @@ surname: Harding
 first_names: John
 code: bedd643664e4a791f5aa317c9ab77d7eb9d69ed7
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

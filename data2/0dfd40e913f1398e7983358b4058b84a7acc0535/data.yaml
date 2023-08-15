@@ -3,6 +3,6 @@ surname: Etienne Romuald
 first_names: Temgoua Alomo
 code: 0dfd40e913f1398e7983358b4058b84a7acc0535
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

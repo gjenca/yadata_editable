@@ -3,6 +3,6 @@ surname: Drápal
 first_names: Aleš
 code: bd3a6ce69db70663f7c18491f2b174febec913ff
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

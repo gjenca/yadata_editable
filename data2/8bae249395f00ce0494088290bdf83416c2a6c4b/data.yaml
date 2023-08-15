@@ -3,6 +3,6 @@ surname: Stanovský
 first_names: David
 code: 8bae249395f00ce0494088290bdf83416c2a6c4b
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

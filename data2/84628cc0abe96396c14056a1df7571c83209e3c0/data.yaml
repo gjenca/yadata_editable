@@ -3,6 +3,6 @@ surname: Chajda
 first_names: Ivan
 code: 84628cc0abe96396c14056a1df7571c83209e3c0
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

@@ -3,6 +3,6 @@ surname: Janičková
 first_names: Lucia
 code: d1b9fc15365f6e5bdf4f443d559329a7d1bfc9ff
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

@@ -3,6 +3,6 @@ surname: Jedlička
 first_names: Přemysl
 code: 04aaa6185ff2b770489a1a5f2a9c7b3596c001bf
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

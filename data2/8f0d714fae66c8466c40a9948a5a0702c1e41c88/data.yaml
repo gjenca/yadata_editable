@@ -3,6 +3,6 @@ surname: Zahiri
 first_names: Omid
 code: 8f0d714fae66c8466c40a9948a5a0702c1e41c88
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

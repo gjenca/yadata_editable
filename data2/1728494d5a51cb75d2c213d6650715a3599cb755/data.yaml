@@ -3,6 +3,6 @@ surname: Bardyla
 first_names: Serhii
 code: 1728494d5a51cb75d2c213d6650715a3599cb755
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

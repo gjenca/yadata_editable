@@ -3,6 +3,6 @@ surname: Pilitowska
 first_names: Agata
 code: 052ab02bd634ba771af1aed60c3a4b8270e3a4f7
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

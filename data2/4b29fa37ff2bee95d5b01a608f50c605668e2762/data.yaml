@@ -3,6 +3,6 @@ surname: Pócs
 first_names: Jozef
 code: 4b29fa37ff2bee95d5b01a608f50c605668e2762
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

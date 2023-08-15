@@ -3,6 +3,6 @@ surname: Länger
 first_names: Helmut
 code: fe81b2627330fe6fbf5e6064852e5c42ee5c78ef
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

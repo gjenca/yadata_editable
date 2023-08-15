@@ -3,6 +3,6 @@ surname: Emanovský
 first_names: Petr
 code: 25440684dcb7cf77eb5a2e58f1966dd509d129d0
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

@@ -3,6 +3,6 @@ surname: Leonard
 first_names: Kwuida
 code: 6c122a93140d70341671de9bfdacb015fd72cd20
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

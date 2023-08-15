@@ -3,6 +3,6 @@ surname: Lachman
 first_names: Dominik
 code: 38db5e01e9efa677f8e0f3bb5ca554b809ea0748
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

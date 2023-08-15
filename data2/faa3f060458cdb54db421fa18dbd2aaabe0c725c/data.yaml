@@ -3,6 +3,6 @@ surname: Leinster
 first_names: Tom
 code: faa3f060458cdb54db421fa18dbd2aaabe0c725c
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

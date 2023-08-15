@@ -3,6 +3,6 @@ surname: Kühr
 first_names: Jan
 code: 2bfe4c154e3ad5d06d95d21c0614908e09b7ddd7
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

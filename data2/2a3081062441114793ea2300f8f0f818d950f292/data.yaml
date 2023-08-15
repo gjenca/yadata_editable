@@ -3,6 +3,6 @@ surname: Volaříková
 first_names: Jana
 code: 2a3081062441114793ea2300f8f0f818d950f292
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

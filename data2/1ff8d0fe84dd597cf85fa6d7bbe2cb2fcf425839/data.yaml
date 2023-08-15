@@ -3,6 +3,6 @@ surname: Seselja
 first_names: Branimir
 code: 1ff8d0fe84dd597cf85fa6d7bbe2cb2fcf425839
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

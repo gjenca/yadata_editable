@@ -3,6 +3,6 @@ surname: Saati Shirvan
 first_names: Hamid
 code: 5a49a4dd5ed380f5a9fd88762011ef9fea769600
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

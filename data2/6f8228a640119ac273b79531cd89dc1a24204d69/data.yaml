@@ -3,6 +3,6 @@ surname: Ploščica
 first_names: Miroslav
 code: 6f8228a640119ac273b79531cd89dc1a24204d69
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''

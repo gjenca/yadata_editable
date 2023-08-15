@@ -3,6 +3,6 @@ surname: Halaš
 first_names: Radomír
 code: f886ff497ff6f6968b7254e92dad8d4aa80fac72
 arrival: null
-arrival_other_val: null
+arrival_other_val: ''
 departure: null
-arr_dep_remarks: null
+arr_dep_remarks: ''
