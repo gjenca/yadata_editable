@@ -39,7 +39,7 @@ DEPLOYED=(socket.gethostname()=='www-kmadg')
 
 if DEPLOYED:
     DATADIR_TALKS='/var/lib/ssaos_abstracts'
-    DATADIR_TALKS='/var/lib/ssaos_participants'
+    DATADIR_PARTICIPANTS='/var/lib/ssaos_participants'
     TEMPLATE_DIR='/usr/local/lib/yadata_editable/template'
 else:
     DATADIR_TALKS='./data'
