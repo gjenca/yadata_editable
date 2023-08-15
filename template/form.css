@@ -57,6 +57,9 @@
 
 fieldset {
 	margin:1em;
+}
+
+fieldset legend {
 	font-weight:bold;
 }
 
