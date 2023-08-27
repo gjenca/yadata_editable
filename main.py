@@ -206,8 +206,8 @@ def thanks(objid):
     except FileNotFoundError:
         have_abstract=False
         abstract_length=-1
-    t_html=env.get_template('thanks.html')
-    t_txt=env.get_template('thanks.txt')
+    t_html=env.get_template('thanks_abstract.html')
+    t_txt=env.get_template('thanks_abstract.txt')
     thanks_html=t_html.render(obj=obj,have_abstract=have_abstract,abstract_length=abstract_length,
                     correct_url=url_for('abstract_form',objid=objid),
                     abstract_url=url_for('abstract',objid=objid),
