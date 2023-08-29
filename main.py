@@ -36,6 +36,18 @@ yaml.add_representer(str, unicode_representer)
 app = Flask(__name__)
 app.secret_key='pb3wuD31NCwnQ0CQP4rUAZ/x0OU'
 
+@app.after_request
+def add_header(r):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
+
 DEPLOYED=(socket.gethostname()=='www-kmadg')
 
 if DEPLOYED:
@@ -96,13 +108,11 @@ def slides(objid):
         return send_file(io.BytesIO(slides),mimetype='application/pdf',
                          as_attachment=True,
                          attachment_filename=f'{filename_slides}',
-                         cache_timeout=0,
                        )
     else:
         return send_file(io.BytesIO(slides),mimetype='application/pdf',
                          as_attachment=True,
                          download_name=f'{filename_slides}',
-                         cache_timeout=0,
                        )
     #return Response(slides,content_type='application/pdf',
     #                headers={'content-disposition':f'attachment; filename={filename_slides}'}
