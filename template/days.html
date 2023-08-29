@@ -1,6 +1,7 @@
 # extends "base.html"
 # block body
+<h2>Slides for SSAOS 2023</h2>
 # for i,dayname in daylist
-<a href="{{url_for('program_day',day_n=i)}}"><h2>{{dayname}}</h2></a>
+<a href="{{url_for('program_day',day_n=i)}}"><h2>Slides for {dayname}}</h2></a>
 # endfor
 # endblock
