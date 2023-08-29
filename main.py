@@ -96,12 +96,13 @@ def slides(objid):
         return send_file(io.BytesIO(slides),mimetype='application/pdf',
                          as_attachment=True,
                          attachment_filename=f'{filename_slides}',
-                         cache_timeout=1,
+                         cache_timeout=0,
                        )
     else:
         return send_file(io.BytesIO(slides),mimetype='application/pdf',
                          as_attachment=True,
-                         download_name=f'{filename_slides}'
+                         download_name=f'{filename_slides}',
+                         cache_timeout=0,
                        )
     #return Response(slides,content_type='application/pdf',
     #                headers={'content-disposition':f'attachment; filename={filename_slides}'}
