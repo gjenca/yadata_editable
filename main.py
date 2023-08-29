@@ -96,7 +96,7 @@ def slides(objid):
         return send_file(io.BytesIO(slides),mimetype='application/pdf',
                          as_attachment=True,
                          attachment_filename=f'{filename_slides}',
-                         max_age=1
+                         cache_timeout=1,
                        )
     else:
         return send_file(io.BytesIO(slides),mimetype='application/pdf',
