@@ -95,7 +95,8 @@ def slides(objid):
     if flask_version==1:
         return send_file(io.BytesIO(slides),mimetype='application/pdf',
                          as_attachment=True,
-                         attachment_filename=f'{filename_slides}'
+                         attachment_filename=f'{filename_slides}',
+                         max_age=1
                        )
     else:
         return send_file(io.BytesIO(slides),mimetype='application/pdf',
