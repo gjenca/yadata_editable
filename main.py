@@ -7,6 +7,7 @@ import socket
 import unicodemail
 import glob
 import io
+import requests
 
 import yaml
 import flask
@@ -347,6 +348,50 @@ def arrdep_all_data():
                     mimetype='text/vnd.yaml',
                     headers={'Content-disposition': 'attachment; filename=arrdeps.yaml'}
                     )
+
+def has_slides(objid):
+
+    try:
+        with open(slides_fnm(objid),'rb') as f:
+            return True
+    except FileNotFoundError:
+        return False
+
+URL_PROGRAM_YAML='https://www.math.sk/ssaos2023/program.yaml'
+
+@app.route('/program_day/<int:day_n>')
+def program_day(day_n):
+
+    r=requests.get('https://www.math.sk/ssaos2023/program.yaml')
+    talk_list=[]
+    for talk in yaml.safe_load_all(r.text):
+        if talk['day_n']==day_n:
+            talk_list.append(talk)
+            talk['has_slides']=has_slides(talk['code'])
+            if talk['has_slides']:
+                    talk['slides_url']=url_for('slides',objid=talk['code'])
+    day_name=talk_list[0]['day_name']
+    program_day={}
+    for talk in talk_list:
+        if not talk['session'] in program_day:
+            program_day[talk['session']]=[]
+        program_day[talk['session']].append(talk)
+    t=env.get_template('program_day.html')
+    return t.render(day_name=day_name,program_day=program_day)
+
+
+days = ('Saturday', 'Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
+@app.route('/program')
+def program():
+
+        daylist=[]
+        for i in range(1,len(days)):
+            if days[i]=='Tuesday':
+                continue
+            daylist.append((i,days[i]))
+        t=env.get_template('days.html')
+        return t.render(daylist=daylist,url_for=url_for)
+        
 
 
 #app.run()

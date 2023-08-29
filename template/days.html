@@ -1,0 +1,6 @@
+# extends "base.html"
+# block body
+# for i,dayname in daylist
+<a href="{{url_for('program_day',day_n=i)}}"><h2>{{dayname}}</h2></a>
+# endfor
+# endblock

@@ -1,0 +1,23 @@
+# extends "base.html"
+# block body
+<h1>{{day_name}}</h1>
+<table border="1"> 
+# for session in program_day:
+<tr>
+<th colspan="2">Session {{session}}</th>
+<th>link</th>
+</tr>
+# for talk in program_day[session]:
+<tr>
+<td>{{talk.time_start}}--{{talk.time_end}}</td>
+<td>{{talk.presented_by}}: <i>{{talk.title}}</td>
+<td>
+# if talk.has_slides
+<a href="{{talk.slides_url}}">[slides]</a>
+# endif
+</td>
+</tr>
+# endfor
+# endfor
+</table>
+# endblock
