@@ -127,7 +127,7 @@ def thanks_slides(objid):
     thanks_html=t_html.render(obj=obj,have_slides=have_slides,slides_length=slides_length,
                     correct_url=url_for('slides_form',objid=objid),
                     slides_url=url_for('slides',objid=objid),
-                    url_for=url_for,
+                    program_url=url_for('program'),
                     )
     if DEPLOYED:
         thanks_txt=t_txt.render(obj=obj,have_slides=have_slides,slides_length=slides_length,
