@@ -203,7 +203,7 @@ def thanks_arrival_departure(objid):
         )
     return thanks_html
 
-@app.route('/arrival_departure_form/<objid>',methods=["GET","POST"])
+#@app.route('/arrival_departure_form/<objid>',methods=["GET","POST"])
 def arrival_departure_form(objid):
 
     error=None
@@ -354,28 +354,33 @@ def abstract_form(objid):
 @auth.login_required
 def all_data():
 
+    data=[]
+    for objid in os.listdir(DATADIR_TALKS):
+        with open(yaml_talk_fnm(objid)) as f:
+            obj=yaml.load(f,Loader=yaml.Loader)
+        try:
+            with open(abstract_fnm(objid)) as f:
+                abstract=f.read()
+        except FileNotFoundError:
+            abstract=None
+        obj['abstract']=abstract
+        data.append(obj)
     if request.method=='GET':
-        data=[]
-        for objid in os.listdir(DATADIR_TALKS):
-            with open(yaml_talk_fnm(objid)) as f:
-                obj=yaml.load(f,Loader=yaml.Loader)
-            try:
-                with open(abstract_fnm(objid)) as f:
-                    abstract=f.read()
-            except FileNotFoundError:
-                abstract=None
-            obj['abstract']=abstract
-            data.append(obj)
-        yaml_data=yaml.dump_all(data)
+        yaml_data=yaml.dump_all(data,allow_unicode=True)
         return Response(yaml_data,
                         mimetype='application/yaml',
                         headers={'Content-disposition': 'attachment; filename=talks.yaml'}
                         )
-    else:
-        print('got data',request.form)
-        return 'boo'
+    else: # POST
+        uploaded=request.stream.read().decode('utf-8')
+        text_stream=io.StringIO(uploaded)
+        data_uploaded=yaml.safe_load_all(text_stream)
+        for datum in data_uploaded:
+            sys.stderr.write(f"{datum}\n")
+        return "boo"
 
-@app.route('/arrdep_all_yaml')
+
+#@app.route('/arrdep_all_yaml')
 def arrdep_all_data():
 
     data=[]
@@ -399,7 +404,7 @@ def has_slides(objid):
 
 URL_PROGRAM_YAML='https://www.math.sk/ssaos2026/program.yaml'
 
-@app.route('/program_day/<int:day_n>')
+#@app.route('/program_day/<int:day_n>')
 def program_day(day_n):
 
     r=requests.get('https://www.math.sk/ssaos2026/program.yaml')
@@ -420,13 +425,13 @@ def program_day(day_n):
     return t.render(day_name=day_name,program_day=program_day)
 
 
-days = ('Saturday', 'Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
-@app.route('/program')
+days = ('Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
+#@app.route('/program')
 def program():
 
         daylist=[]
         for i in range(1,len(days)):
-            if days[i]=='Tuesday':
+            if days[i]=='Wednesday':
                 continue
             daylist.append((i,days[i]))
         t=env.get_template('days.html')
@@ -434,5 +439,5 @@ def program():
         
 
 
-app.run()
+#app.run()
 
