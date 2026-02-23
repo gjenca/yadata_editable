@@ -13,6 +13,7 @@ mkdir -pv $CODEDIR
 cp -rvf template $CODEDIR/template
 cp -vf main.py $CODEDIR
 cp -vf unicodemail.py $CODEDIR
+cp -vf creds.txt $CODEDIR
 cp -vf main.cgi $CODEDIR
 chown -R www-data:www-data $CODEDIR
 chmod -R u=rX,g=,o= $CODEDIR
