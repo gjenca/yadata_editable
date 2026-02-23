@@ -8,11 +8,13 @@ import unicodemail
 import glob
 import io
 import requests
+import importlib.metadata
 
 import yaml
 import flask
 
-flask_version=int(flask.__version__.split('.')[0])
+
+flask_version=int(importlib.metadata.version('flask').split('.')[0])
 
 from flask import Flask,abort,request,redirect,flash,url_for,Response,send_file
 from jinja2 import Environment,FileSystemLoader
@@ -395,5 +397,5 @@ def program():
         
 
 
-#app.run()
+app.run()
 
