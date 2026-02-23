@@ -19,3 +19,4 @@
 *.png
 *.synctex.gz
 *.fdb_latexmk
+creds.txt
