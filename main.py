@@ -37,7 +37,8 @@ auth = HTTPBasicAuth()
 @auth.verify_password
 def verify_password(username,password):
 
-    print('password:',str(password),file=sys.stderr)
+    print(f'username:repr(username)',file=sys.stderr)
+    print(f'password:repr(password)',file=sys.stderr)
     h=sha256()
     h.update(password.encode('utf-8'))
     return username==USERNAME and h.hexdigest()==PASSWORD
