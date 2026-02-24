@@ -1,1 +1,1 @@
-You can view the PDF here {{slides_url}}
+You can view the PDF here https://www.math.sk/{{slides_url}}
