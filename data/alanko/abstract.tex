@@ -1,0 +1,141 @@
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage[sort&compress,numbers]{natbib}
+\usepackage{doi}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{stackengine}
+\usepackage{bm}
+%\textheight23cm \topmargin-20mm  
+%\textwidth175mm  
+%\oddsidemargin=0mm
+%\evensidemargin=0mm
+%
+
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+
+\usepackage[all]{xy}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{coro}{Corollary}
+\newtheorem{prop}{Proposition}
+
+\newcommand{\val}[1]{\|{#1}\|}
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}
+
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\nablaDot}{{\stackinset{c}{.1ex}{c}{.1ex}{$\cdot$}{$\bm{\nabla}$}}}
+\newcommand{\Dnabla}{{\nablaDot}}
+
+
+\def\Be{\mathcal B}
+\def\Me{\mathcal M}
+\def\Fe{\mathcal F}
+\def\Te{\mathcal T}
+\def\Rr{\mathcal R}
+\def\cH{\mathcal H}
+\def\Ka{\mathcal K}
+\def\Ne{\mathcal N}
+%\def \tr{\mathrm{Tr}\,}
+\def \tr{\mathrm{Tr}}
+\def\cS {\mathcal S}
+\def\supp{\mathrm{supp}}
+\def\<{\langle\.}
+\def\>{\.\rangle}
+
+
+
+
+
+\title{Frobenius structures in coherent algebras}
+\author{Anna Jen\v cov\'a}
+
+
+\begin{document}
+
+\maketitle
+
+
+Let $(X,S)$ be a coherent configuration and let $|X|=n$, $|S|=d$. For each $a\in S$,
+define a $n\times n$ matrix $M_a$ by
+\[
+(M_a)_x^y=\begin{dcases} 1 & \text{if } (x,y)\in a\\
+ 0 & \text{otherwise.}
+ \end{dcases}
+\]
+The matrices $M_a$, $a\in S$ are linearly independent elements in $B(\mathbb C^n)$.
+Moreover, we have
+\begin{equation}\label{eq:algebra}
+M_a^*= M_{a^{-1}}, \qquad M_aM_b=\sum_{c\in S} \nabla_{ab}^c M_c,
+\end{equation}
+so that the linear span  $\mathcal M:=\mathrm{span}\{M_a, a\in S\}$ is a $d$-dimensional *-subalgebra in $B(\mathbb
+C^n)$. Let $E\subset S$ be the set of unit colors, so that the matrix $M_e$ is diagonal
+for any $e\in E$, which also implies that $M_e$ is a projection. For  $e\in E$ and $a\in
+S$, we have
+\[
+M_eM_a= \delta_{e,s(a)}M_a,\qquad M_aM_e=\delta_{e,t(a)}M_a,
+\]
+where $s(a)$ is the source and $t(a)$ is the target color of $a$. It is easy to see that
+$M_{t(a)}$ is the support and $M_{s(a)}$ is the range projection of the matrix $M_a$. 
+
+
+The algebra $\Me$ inherits the trace and  inner product from $B(\mathbb C^n)$, defined as
+\[
+\<A,B\>=\tr A^*B,\qquad A,B\in \Me.
+\]
+On the basis elements, we have 
+\[
+\tr M_a=\begin{dcases} |a| & \text{if } a\in E\\
+0 & \text{otherwise},
+\end{dcases}
+\]
+where $|a|$ is the number of $a$-colored edges, and 
+\begin{equation}\label{eq:onb}
+\<M_a,M_b\>=\tr (\sum_{c\in S} \nabla_{a^{-1}b}^cM_c)=\sum_{e\in E}
+\nabla_{a^{-1}b}^e|e|=\begin{dcases} |a| & \text{if } a-b\\
+0 & \text{otherwise},
+\end{dcases}
+\end{equation}
+note that $\nabla_{a^{-1}b}^e$ for $e\in E$ is nonzero iff $a=b$ and $e=s(a^{-1})$,
+in whch case $\nabla_{a^{-1}b}^e=\nabla_{a^{-1}a}^{s(a^{-1})}=\val {a^{-1}}$.
+The above equality then follows from  $\val {a^{-1}}|s(a^{-1})|=|a^{-1}|=|a|$. This
+implies that 
+\[
+\bar M_a:= |a|^{-1/2} M_a,\qquad a\in S
+\]
+defines an orthonormal basis of $\Me$ with respect to $\<\cdot,\cdot\>$. Note also that we
+easily get the rotation relations for $\nabla$ from this representation. Indeed,
+\[
+\nabla_{ab}^c=\nabla_{b^{-1}a^{-1}}^{c^{-1}}
+\]
+is immediate from $(M_aM_b)^*=M_b^*M_a^*$ and the equalities \eqref{eq:algebra}. Further,
+from \eqref{eq:algebra},  \eqref{eq:onb} and the obvious equalities 
+\[
+\<M_c,M_aM_b\>=\<M_a^*M_c,M_b\>
+=\<M_cM_b^*,M_a\>\]
+ we obtain 
+\[
+|c|\nabla_{ab}^c=|b|\nabla_{c^{-1}a}^{b^{-1}}=|a|\nabla_{bc^{-1}}^{a^{-1}}.
+\]
+Since $\nabla{ab}^c>0$ iff $s(a)=s(c)$ and $s(c^{-1})=s(b^{-1})$, and using $|a|=|s(a)|\val a$,  we obtain the equalities
+\[
+\val c\nabla_{ab}^c=\val{b^{-1}}\nabla_{c^{-1}a}^{b^{-1}}=\val a\nabla_{bc^{-1}}^{a^{-1}}.
+\]
+
+Let $\bar\nabla_{ab}^c$ be the coefficients of the multiplication in the ONB $\{\bar M_a,
+a\in S\}$, so that
+\[
+\bar M_a\bar M_b=\sum_c \bar\nabla_{ab}^c \bar M_c.
+\]
+We then get 
+
+
+
+
+\end{document}
+

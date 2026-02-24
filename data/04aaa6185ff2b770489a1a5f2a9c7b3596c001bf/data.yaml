@@ -1,6 +1,14 @@
 _key: Talk:Jedlička_Přemysl
-participant: Jedlička_Přemysl
-title: 2-reductive solutions of Yang-Baxter equation
-presented_by: Přemysl Jedlička
+abstract: "\\documentclass{amsart}\n\\pagestyle{empty}\n\\usepackage{pstricks}\n\\\
+  usepackage{pst-node}\n\\begin{document}\n\\thispagestyle{empty}\n\\noindent\n$\n\
+  \\begin{array}{ccc}\n\\Rnode{a}{2^{(2^A)}} & \\qquad & \\Rnode{E}{E}\\\\[3em]\n\\\
+  Rnode{b}{2^{(2^B)}} \n\\end{array}\n\\ncline[nodesep=3pt,arrows=->,linewidth=0.5pt]{a}{E}\\\
+  naput{\\alpha_A}\n\\ncline[nodesep=3pt,arrows=->,linewidth=0.5pt]{a}{b}\\nbput{g^A_B}\n\
+  \\ncline[nodesep=3pt,arrows=->,linewidth=0.5pt]{b}{E}\\trput{\\alpha_B}\n$\n\\end{document}\n"
+abstract_uploaded: false
 coauthors: ''
 code: 04aaa6185ff2b770489a1a5f2a9c7b3596c001bf
+participant: Jedlička_Přemysl
+presented_by: Přemysl Jedlička
+slides_uploaded: true
+title: 2-reductive solutions of Yang-Baxter equation

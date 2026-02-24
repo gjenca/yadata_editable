@@ -8,14 +8,54 @@ import unicodemail
 import glob
 import io
 import requests
+import importlib.metadata
+from pathlib import Path
+from hashlib import sha256
 
 import yaml
 import flask
+from flask_httpauth import HTTPBasicAuth
 
-flask_version=int(flask.__version__.split('.')[0])
+
+flask_version=int(importlib.metadata.version('flask').split('.')[0])
+
 
 from flask import Flask,abort,request,redirect,flash,url_for,Response,send_file
 from jinja2 import Environment,FileSystemLoader
+
+app = Flask(__name__)
+app.secret_key='pb3wuD31NCwnQ0CQP4rUAZ/x0OU'
+
+with open('creds.txt') as f:
+    creds=yaml.load(f,Loader=yaml.Loader)
+
+USERNAME=creds['USERNAME']
+PASSWORD=creds['PASSWORD']
+
+auth = HTTPBasicAuth()
+
+@auth.verify_password
+def verify_password(username,password):
+
+    h=sha256()
+    h.update(password.encode('utf-8'))
+    return username==USERNAME and h.hexdigest()==PASSWORD
+
+DEPLOYED=(socket.gethostname()=='www-kmadg')
+
+if DEPLOYED:
+    DATADIR_TALKS='/var/lib/ssaos_2026_abstracts'
+    DATADIR_PARTICIPANTS='/var/lib/ssaos_2026_participants'
+    TEMPLATE_DIR='/usr/local/lib/yadata_editable/template'
+else:
+    DATADIR_TALKS='./data'
+    DATADIR_PARTICIPANTS='./data2'
+    TEMPLATE_DIR='./template'
+
+env=Environment(loader=FileSystemLoader(TEMPLATE_DIR),
+    line_statement_prefix='#',
+    extensions=['jinja2.ext.loopcontrols'],
+)
 
 def construct_yaml_str(self, node):
     return self.construct_scalar(node)
@@ -33,25 +73,6 @@ def unicode_representer(dumper, uni):
 # This is necessary to dump ASCII string normally
 yaml.add_representer(str, unicode_representer)
 
-app = Flask(__name__)
-app.secret_key='pb3wuD31NCwnQ0CQP4rUAZ/x0OU'
-
-DEPLOYED=(socket.gethostname()=='www-kmadg')
-
-if DEPLOYED:
-    DATADIR_TALKS='/var/lib/ssaos_abstracts'
-    DATADIR_PARTICIPANTS='/var/lib/ssaos_participants'
-    TEMPLATE_DIR='/usr/local/lib/yadata_editable/template'
-else:
-    DATADIR_TALKS='./data'
-    DATADIR_PARTICIPANTS='./data2'
-    TEMPLATE_DIR='./template'
-
-env=Environment(loader=FileSystemLoader(TEMPLATE_DIR),
-    line_statement_prefix='#',
-    extensions=['jinja2.ext.loopcontrols'],
-)
-
 def yaml_talk_fnm(objid):
 
     return f'{DATADIR_TALKS}/{objid}/data.yaml'
@@ -59,6 +80,10 @@ def yaml_talk_fnm(objid):
 def yaml_participant_fnm(objid):
 
     return f'{DATADIR_PARTICIPANTS}/{objid}/data.yaml'
+
+def abstract_dir(objid):
+    
+    return f'{DATADIR_TALKS}/{objid}'
 
 def abstract_fnm(objid):
 
@@ -68,6 +93,12 @@ def slides_fnm(objid):
 
     return f'{DATADIR_TALKS}/{objid}/slides.pdf'
 
+
+@app.route('/test_login')
+@auth.login_required
+def test_login():
+
+    return 'well done'
 
 @app.route('/abstract/<objid>')
 def abstract(objid):
@@ -138,7 +169,7 @@ def thanks_slides(objid):
             from_='noreply@math.sk',
             to='gejza.jenca@gmail.com',
             cc='',
-            subject=f'SSAOS 2023 -- {obj["participant"]} uploaded the slides',
+            subject=f'SSAOS 2026 -- {obj["participant"]} uploaded the slides',
             message=thanks_txt,
             html=thanks_html
         )
@@ -162,15 +193,15 @@ def thanks_arrival_departure(objid):
         thanks_txt=t_txt.render(obj=obj)
         unicodemail.send(
             from_='noreply@math.sk',
-            to='ssaos2023@math.sk',
+            to='ssaos2026@math.sk',
             cc='',
-            subject=f'SSAOS 2023 -- {obj["_key"]} submitted arrival/departure info',
+            subject=f'SSAOS 2026 -- {obj["_key"]} submitted arrival/departure info',
             message=thanks_txt,
             html=thanks_html
         )
     return thanks_html
 
-@app.route('/arrival_departure_form/<objid>',methods=["GET","POST"])
+#@app.route('/arrival_departure_form/<objid>',methods=["GET","POST"])
 def arrival_departure_form(objid):
 
     error=None
@@ -223,7 +254,7 @@ def thanks(objid):
             from_='noreply@math.sk',
             to='gejza.jenca@gmail.com',
             cc='',
-            subject=f'SSAOS 2023 -- {obj["participant"]} updated the talk information',
+            subject=f'SSAOS 2026 -- {obj["participant"]} updated the talk information',
             message=thanks_txt,
             html=thanks_html
         )
@@ -317,7 +348,8 @@ def abstract_form(objid):
                     abstract_url=url_for('abstract',objid=objid)
                     )
 
-@app.route('/data_yaml')
+@app.route('/data_yaml',methods=['GET','POST'])
+@auth.login_required
 def all_data():
 
     data=[]
@@ -331,63 +363,34 @@ def all_data():
             abstract=None
         obj['abstract']=abstract
         data.append(obj)
-    yaml_data=yaml.dump_all(data)
-    return Response(yaml_data,
-                    mimetype='text/vnd.yaml',
-                    headers={'Content-disposition': 'attachment; filename=talks.yaml'}
-                    )
-@app.route('/arrdep_all_yaml')
-def arrdep_all_data():
-
-    data=[]
-    for objid in os.listdir(DATADIR_PARTICIPANTS):
-        with open(yaml_participant_fnm(objid)) as f:
-            obj=yaml.load(f,Loader=yaml.Loader)
-        data.append(obj)
-    yaml_data=yaml.dump_all(data)
-    return Response(yaml_data,
-                    mimetype='text/vnd.yaml',
-                    headers={'Content-disposition': 'attachment; filename=arrdeps.yaml'}
-                    )
-
-def has_slides(objid):
-
-    try:
-        with open(slides_fnm(objid),'rb') as f:
-            return True
-    except FileNotFoundError:
-        return False
-
-URL_PROGRAM_YAML='https://www.math.sk/ssaos2023/program.yaml'
-
-@app.route('/program_day/<int:day_n>')
-def program_day(day_n):
-
-    r=requests.get('https://www.math.sk/ssaos2023/program.yaml')
-    talk_list=[]
-    for talk in yaml.safe_load_all(r.text):
-        if talk['day_n']==day_n:
-            talk_list.append(talk)
-            talk['has_slides']=has_slides(talk['code'])
-            if talk['has_slides']:
-                    talk['slides_url']=url_for('slides',objid=talk['code'])
-    day_name=talk_list[0]['day_name']
-    program_day={}
-    for talk in talk_list:
-        if not talk['session'] in program_day:
-            program_day[talk['session']]=[]
-        program_day[talk['session']].append(talk)
-    t=env.get_template('program_day.html')
-    return t.render(day_name=day_name,program_day=program_day)
+    if request.method=='GET':
+        yaml_data=yaml.dump_all(data,allow_unicode=True)
+        return Response(yaml_data,
+                        mimetype='application/yaml',
+                        headers={'Content-disposition': 'attachment; filename=talks.yaml'}
+                        )
+    else: # POST
+        uploaded=request.stream.read().decode('utf-8')
+        text_stream=io.StringIO(uploaded)
+        data_uploaded=yaml.safe_load_all(text_stream)
+        for datum in data_uploaded:
+            dirpath=abstract_dir(datum['code'])
+            if os.path.isdir(dirpath):
+                continue
+            sys.stderr.write(f'{dirpath}\n')
+            os.mkdir(dirpath)
+            with open(yaml_talk_fnm(datum['code']),'w') as f:
+                f.write(yaml.dump(datum,allow_unicode=True))
+        return Response('201 Created',status=201)
 
 
-days = ('Saturday', 'Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
-@app.route('/program')
+days = ('Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
+#@app.route('/program')
 def program():
 
         daylist=[]
         for i in range(1,len(days)):
-            if days[i]=='Tuesday':
+            if days[i]=='Wednesday':
                 continue
             daylist.append((i,days[i]))
         t=env.get_template('days.html')
