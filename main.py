@@ -44,8 +44,8 @@ def verify_password(username,password):
 DEPLOYED=(socket.gethostname()=='www-kmadg')
 
 if DEPLOYED:
-    DATADIR_TALKS='/var/lib/ssaos_abstracts'
-    DATADIR_PARTICIPANTS='/var/lib/ssaos_participants'
+    DATADIR_TALKS='/var/lib/ssaos_2026_abstracts'
+    DATADIR_PARTICIPANTS='/var/lib/ssaos_2026_participants'
     TEMPLATE_DIR='/usr/local/lib/yadata_editable/template'
 else:
     DATADIR_TALKS='./data'
@@ -72,8 +72,6 @@ def unicode_representer(dumper, uni):
 
 # This is necessary to dump ASCII string normally
 yaml.add_representer(str, unicode_representer)
-
-
 
 def yaml_talk_fnm(objid):
 
@@ -376,53 +374,14 @@ def all_data():
         text_stream=io.StringIO(uploaded)
         data_uploaded=yaml.safe_load_all(text_stream)
         for datum in data_uploaded:
-            sys.stderr.write(f"{datum}\n")
-        return "boo"
-
-
-#@app.route('/arrdep_all_yaml')
-def arrdep_all_data():
-
-    data=[]
-    for objid in os.listdir(DATADIR_PARTICIPANTS):
-        with open(yaml_participant_fnm(objid)) as f:
-            obj=yaml.load(f,Loader=yaml.Loader)
-        data.append(obj)
-    yaml_data=yaml.dump_all(data)
-    return Response(yaml_data,
-                    mimetype='application/yaml',
-                    headers={'Content-disposition': 'attachment; filename=arrdeps.yaml'}
-                    )
-
-def has_slides(objid):
-
-    try:
-        with open(slides_fnm(objid),'rb') as f:
-            return True
-    except FileNotFoundError:
-        return False
-
-URL_PROGRAM_YAML='https://www.math.sk/ssaos2026/program.yaml'
-
-#@app.route('/program_day/<int:day_n>')
-def program_day(day_n):
-
-    r=requests.get('https://www.math.sk/ssaos2026/program.yaml')
-    talk_list=[]
-    for talk in yaml.safe_load_all(r.text):
-        if talk['day_n']==day_n:
-            talk_list.append(talk)
-            talk['has_slides']=has_slides(talk['code'])
-            if talk['has_slides']:
-                    talk['slides_url']=url_for('slides',objid=talk['code'])
-    day_name=talk_list[0]['day_name']
-    program_day={}
-    for talk in talk_list:
-        if not talk['session'] in program_day:
-            program_day[talk['session']]=[]
-        program_day[talk['session']].append(talk)
-    t=env.get_template('program_day.html')
-    return t.render(day_name=day_name,program_day=program_day)
+            dirpath=abstract_dir(datum['code'])
+            if os.path.isdir(dirpath):
+                continue
+            sys.stderr.write(f'{dirpath}\n')
+            os.mkdir(dirpath)
+            with open(yaml_talk_fnm(datum['code']),'w') as f:
+                f.write(yaml.dump(datum,allow_unicode=True))
+        return Response('201 Created',status=201)
 
 
 days = ('Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
