@@ -43,7 +43,7 @@ def verify_password(username,password):
     h.update(password.encode('utf-8'))
     return username==USERNAME and h.hexdigest()==PASSWORD
 
-DEPLOYED=(socket.gethostname()=='www-kmadg')
+DEPLOYED=(socket.gethostname() in ('www-kmadg','mpm'))
 
 if DEPLOYED:
     DATADIR_TALKS='/var/lib/ssaos_2026_abstracts'
