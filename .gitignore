@@ -20,3 +20,5 @@
 *.synctex.gz
 *.fdb_latexmk
 creds.txt
+.claude/
+__pycache__/
