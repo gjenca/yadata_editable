@@ -306,7 +306,7 @@ def slides_form(objid):
                     slides_url=url_for('slides',objid=objid)
                     )
 
-@app.route('/data/<objid>',methods=["GET","POST"])
+@app.route('/abstract_form/<objid>',methods=["GET","POST"])
 def abstract_form(objid):
 
     error=None
