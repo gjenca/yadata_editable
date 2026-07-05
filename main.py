@@ -54,6 +54,9 @@ if DEPLOYED:
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
+    from werkzeug.middleware.proxy_fix import ProxyFix
+    app.wsgi_app = ProxyFix(
+        app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 else:
     app.logger.setLevel(logging.DEBUG)
 
@@ -64,10 +67,12 @@ auth = HTTPBasicAuth()
 @auth.verify_password
 def verify_password(username,password):
 
-    app.logger.debug(f'username:{repr(username)}')
-    app.logger.debug(f'password:{repr(password)}')
+    app.logger.debug(f'username:{repr(username)},{repr(USERNAME)}')
+    app.logger.debug(f'password:{repr(password)},{repr(PASSWORD)}')
     h=sha256()
     h.update(password.encode('utf-8'))
+
+    return username==USERNAME and h.hexdigest()==PASSWORD
 
 env=Environment(loader=FileSystemLoader(TEMPLATE_DIR),
     line_statement_prefix='#',
