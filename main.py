@@ -407,7 +407,7 @@ def all_data():
 
 
 days = ('Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
-#@app.route('/program')
+@app.route('/program')
 def program():
 
         daylist=[]
