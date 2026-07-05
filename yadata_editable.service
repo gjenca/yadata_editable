@@ -1,0 +1,21 @@
+[Unit]
+Description=Gunicorn - yadata_editable
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+#Environment="DJANGO_SETTINGS_MODULE=dataform.settings_deploy"
+WorkingDirectory=/usr/local/lib/yadata_editable
+RuntimeDirectory=gunicorn
+ExecStart=/usr/bin/gunicorn3 main:app --bind localhost:8000
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
+
