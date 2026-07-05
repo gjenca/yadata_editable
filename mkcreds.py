@@ -13,4 +13,3 @@ d['PASSWORD']=h.hexdigest()
 f=open('creds.txt','w')
 f.write(yaml.dump(d))
 f.close()
-

@@ -6,7 +6,7 @@ PROJECT=yadata_editable
 CODEDIR=/usr/local/lib/$PROJECT
 
 
-rm -r $CODEDIR
+#rm -r $CODEDIR
 #rm -r $STATICDIR
 mkdir -pv $CODEDIR
 #mkdir -pv $STATICDIR/static
@@ -14,9 +14,13 @@ cp -rvf template $CODEDIR/template
 cp -vf main.py $CODEDIR
 cp -vf unicodemail.py $CODEDIR
 cp -vf mkcreds.py $CODEDIR
+cp -vf mkcreds.sh $CODEDIR
 cp -vf main.cgi $CODEDIR
 chown -R www-data:www-data $CODEDIR
 chmod -R u=rX,g=,o= $CODEDIR
 find  $CODEDIR -type d -exec chmod -v u+w {} \;
-#systemctl restart $PROJECT
-#systemctl status $PROJECT
+cp -vf yadata_editable.service /etc/systemd/system
+systemctl daemon-reload
+systemctl stop $PROJECT
+systemctl start $PROJECT
+systemctl status $PROJECT

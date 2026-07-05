@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import os
+import pwd
 import tempfile
 import shutil
 import socket
@@ -8,14 +9,15 @@ import unicodemail
 import glob
 import io
 import requests
+import logging
 import importlib.metadata
 from pathlib import Path
 from hashlib import sha256
+import gunicorn
 
 import yaml
 import flask
 from flask_httpauth import HTTPBasicAuth
-
 
 flask_version=int(importlib.metadata.version('flask').split('.')[0])
 
@@ -23,36 +25,49 @@ flask_version=int(importlib.metadata.version('flask').split('.')[0])
 from flask import Flask,abort,request,redirect,flash,url_for,Response,send_file
 from jinja2 import Environment,FileSystemLoader
 
-app = Flask(__name__)
-app.secret_key='pb3wuD31NCwnQ0CQP4rUAZ/x0OU'
+DEPLOYED=(socket.gethostname() in ('www-kmadg','mpm')) and \
+        pwd.getpwuid(os.getuid())[0]=='www-data'
 
-with open('creds.txt') as f:
-    creds=yaml.load(f,Loader=yaml.Loader)
+if DEPLOYED:
+    DATADIR_TALKS='/var/lib/ssaos_2026_abstracts'
+    DATADIR_PARTICIPANTS='/var/lib/ssaos_2026_participants'
+    TEMPLATE_DIR='/usr/local/lib/yadata_editable/template'
+    with open('creds.txt') as f:
+        creds=yaml.load(f,Loader=yaml.Loader)
+else:
+    DATADIR_TALKS='./data'
+    DATADIR_PARTICIPANTS='./data2'
+    TEMPLATE_DIR='./template'
+    h=sha256()
+    h.update('veslo'.encode('utf-8'))
+    creds={'USERNAME':'user','PASSWORD':h.hexdigest()}
 
 USERNAME=creds['USERNAME']
 PASSWORD=creds['PASSWORD']
+
+
+app = Flask(__name__)
+app.secret_key='pb3wuD31NCwnQ0CQP4rUAZ/x0OU'
+
+print(f'{DEPLOYED=}',file=sys.stderr)
+if DEPLOYED:
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
+else:
+    app.logger.setLevel(logging.DEBUG)
+
+app.logger.debug('app created')
 
 auth = HTTPBasicAuth()
 
 @auth.verify_password
 def verify_password(username,password):
 
-    print(f'username:repr(username)',file=sys.stderr)
-    print(f'password:repr(password)',file=sys.stderr)
+    app.logger.debug(f'username:{repr(username)}')
+    app.logger.debug(f'password:{repr(password)}')
     h=sha256()
     h.update(password.encode('utf-8'))
-    return username==USERNAME and h.hexdigest()==PASSWORD
-
-DEPLOYED=(socket.gethostname() in ('www-kmadg','mpm'))
-
-if DEPLOYED:
-    DATADIR_TALKS='/var/lib/ssaos_2026_abstracts'
-    DATADIR_PARTICIPANTS='/var/lib/ssaos_2026_participants'
-    TEMPLATE_DIR='/usr/local/lib/yadata_editable/template'
-else:
-    DATADIR_TALKS='./data'
-    DATADIR_PARTICIPANTS='./data2'
-    TEMPLATE_DIR='./template'
 
 env=Environment(loader=FileSystemLoader(TEMPLATE_DIR),
     line_statement_prefix='#',
