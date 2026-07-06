@@ -25,8 +25,11 @@ flask_version=int(importlib.metadata.version('flask').split('.')[0])
 from flask import Flask,abort,request,redirect,flash,url_for,Response,send_file
 from jinja2 import Environment,FileSystemLoader
 
-DEPLOYED=(socket.gethostname() in ('www-kmadg','mpm')) and \
+HOSTNAME=socket.gethostname()
+DEPLOYED=(HOSTNAME in ('www-kmadg','mpm')) and \
         pwd.getpwuid(os.getuid())[0]=='www-data'
+MAILNAME=({'www-kmadg':'math.sk','mpm':'mpm.svf.stuba.sk'})[HOSTNAME]
+INFO_EMAIL='gejza.jenca@stuba.sk'
 
 if DEPLOYED:
     DATADIR_TALKS='/var/lib/ssaos_2026_abstracts'
@@ -188,8 +191,8 @@ def thanks_slides(objid):
                         slides_url=url_for('slides',objid=objid),
                         )
         unicodemail.send(
-            from_='noreply@math.sk',
-            to='gejza.jenca@gmail.com',
+            from_=f'noreply@{MAILNAME}',
+            to=INFO_EMAIL,
             cc='',
             subject=f'SSAOS 2026 -- {obj["participant"]} uploaded the slides',
             message=thanks_txt,
@@ -214,8 +217,8 @@ def thanks_arrival_departure(objid):
     if DEPLOYED:
         thanks_txt=t_txt.render(obj=obj)
         unicodemail.send(
-            from_='noreply@math.sk',
-            to='ssaos2026@math.sk',
+            from_=f'noreply@{MAILNAME}',
+            to=INFO_EMAIL,
             cc='',
             subject=f'SSAOS 2026 -- {obj["_key"]} submitted arrival/departure info',
             message=thanks_txt,
@@ -273,8 +276,8 @@ def thanks(objid):
                         abstract_url=url_for('abstract',objid=objid),
                         )
         unicodemail.send(
-            from_='noreply@math.sk',
-            to='gejza.jenca@gmail.com',
+            from_=f'noreply@{MAILNAME}',
+            to=INFO_EMAIL,
             cc='',
             subject=f'SSAOS 2026 -- {obj["participant"]} updated the talk information',
             message=thanks_txt,
@@ -406,7 +409,7 @@ def all_data():
         return Response('201 Created',status=201)
 
 
-days = ('Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
+days = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
 @app.route('/program')
 def program():
 
