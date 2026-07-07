@@ -70,8 +70,8 @@ auth = HTTPBasicAuth()
 @auth.verify_password
 def verify_password(username,password):
 
-    app.logger.debug(f'username:{repr(username)},{repr(USERNAME)}')
-    app.logger.debug(f'password:{repr(password)},{repr(PASSWORD)}')
+    #app.logger.debug(f'username:{repr(username)},{repr(USERNAME)}')
+    #app.logger.debug(f'password:{repr(password)},{repr(PASSWORD)}')
     h=sha256()
     h.update(password.encode('utf-8'))
 
@@ -397,6 +397,7 @@ def all_data():
     else: # POST
         uploaded=request.stream.read().decode('utf-8')
         text_stream=io.StringIO(uploaded)
+        app.logger.debug(f'length:{len(uploaded)}, starts with:{repr(uploaded[:500])}')
         data_uploaded=yaml.safe_load_all(text_stream)
         for datum in data_uploaded:
             dirpath=abstract_dir(datum['code'])
