@@ -190,13 +190,19 @@ def thanks_slides(objid):
                         correct_url=url_for('slides_form',objid=objid),
                         slides_url=url_for('slides',objid=objid),
                         )
+        attachments=[]
+        if have_slides:
+            key_sanitized=obj['_key'].replace(':','_')
+            with open(slides_fnm(objid),'rb') as f:
+                attachments.append((f'{key_sanitized}.pdf',f.read(),'application/pdf'))
         unicodemail.send(
             from_=f'noreply@{MAILNAME}',
             to=INFO_EMAIL,
             cc='',
             subject=f'SSAOS 2026 -- {obj["participant"]} uploaded the slides',
             message=thanks_txt,
-            html=thanks_html
+            html=thanks_html,
+            attachments=attachments,
         )
     return thanks_html
 
@@ -275,13 +281,19 @@ def thanks(objid):
                         correct_url=url_for('abstract_form',objid=objid),
                         abstract_url=url_for('abstract',objid=objid),
                         )
+        attachments=[]
+        if have_abstract:
+            key_sanitized=obj['_key'].replace(':','_')
+            with open(abstract_fnm(objid),'rb') as f:
+                attachments.append((f'{key_sanitized}.tex',f.read(),'application/x-tex'))
         unicodemail.send(
             from_=f'noreply@{MAILNAME}',
             to=INFO_EMAIL,
             cc='',
             subject=f'SSAOS 2026 -- {obj["participant"]} updated the talk information',
             message=thanks_txt,
-            html=thanks_html
+            html=thanks_html,
+            attachments=attachments,
         )
     return thanks_html
 
