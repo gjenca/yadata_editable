@@ -359,6 +359,7 @@ def abstract_form(objid):
         have_abstract=False
         abstract_length=-1
     obj['abstract_uploaded']=False
+    invited=any(name in obj['_key'] for name in ('Craig','Jipsen','Shareshian'))
     if request.method=='POST':
         print(request.form,file=sys.stderr)
         for name in request.form:
@@ -382,7 +383,8 @@ def abstract_form(objid):
                     error=error,
                     have_abstract=have_abstract,
                     abstract_length=abstract_length,
-                    abstract_url=url_for('abstract',objid=objid)
+                    abstract_url=url_for('abstract',objid=objid),
+                    invited=invited
                     )
 
 @app.route('/data_yaml',methods=['GET','POST'])
