@@ -423,6 +423,26 @@ def all_data():
                 f.write(yaml.dump(datum,allow_unicode=True))
         return Response('201 Created',status=201)
 
+@app.route('/program_day/<int:day_n>')
+def program_day(day_n):
+
+    r=requests.get('https://www.math.sk/ssaos2026/program.yaml')
+    talk_list=[]
+    for talk in yaml.safe_load_all(r.text):
+        if talk['day_n']==day_n:
+            talk_list.append(talk)
+            talk['has_slides']=has_slides(talk['code'])
+            if talk['has_slides']:
+                    talk['slides_url']=url_for('slides',objid=talk['code'])
+    day_name=talk_list[0]['day_name']
+    program_day={}
+    for talk in talk_list:
+        if not talk['session'] in program_day:
+            program_day[talk['session']]=[]
+        program_day[talk['session']].append(talk)
+    t=env.get_template('program_day.html')
+    return t.render(day_name=day_name,program_day=program_day)
+
 
 days = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
 @app.route('/program')
