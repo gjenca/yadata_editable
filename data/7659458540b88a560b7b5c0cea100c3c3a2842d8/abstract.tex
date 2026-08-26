@@ -1,0 +1,57 @@
+\documentclass[a4paper]{article} %
+
+\date{} %
+
+% Please, do not change any of the above lines
+
+\usepackage{amssymb} % add other LaTeX packages you need here.
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\begin{document}
+\setcounter{page}{1} % Please, do not delete this line
+
+% Your title
+\title{Symmetric lattice identities and medians}
+
+% Authors
+\author{Author 1, Author 2, Author 3 \\ %
+       University of XXYY\\ \\ % Affiliation 1
+       Author 4 \\ % If any other author with different Affilation
+       University of ZZWW\\ \\ % Affiliation 2 (if needed)
+       % New author \\
+       % New affiliation \\
+       % Add authors and affiliation as needed
+       \texttt{author@university.xyz} % Only one corresponding e-mail, please
+       }%
+
+\author{Aburub Leen, Gyenizse Gerg\H o.\\
+University of Szeged, Szeged, Hungary}
+
+\maketitle
+
+% The abstract
+
+ An n-ary lattice term $f$ is symmetric when its value does not change when we permute its variables i.e, $f(x_1,  \dots, x_n)=f(x_{\sigma(1)},\dots x_{\sigma(n)})$ for all $\sigma \in S_n$. A symmetric lattice identity is an identity where both sides are symmetric terms. An example of a symmetric identity 
+ \[
+ (x \wedge y)\vee (x \wedge z) \vee (y \wedge z) =(x \vee y)\wedge (x \vee z) \wedge (y \vee z),
+ \]
+which is famously equivalent to the distributive law (which itself is a nonsymmetric identity).
+\begin{conjecture}
+    Each lattice variety can be axiomatized by symmetric identities.
+\end{conjecture}
+
+In this talk we establish that a stronger version of this conjecture is not true: there is a ternary lattice identity which is not equivalent to any system of ternary symmetric identities.
+\begin{thebibliography}{9}
+\bibitem{SecondAuthor_BH}
+\textsc{G. Gyenizse}, On the symmetric parts of finitely generated free lattices. Acta Mathematica Hungarica, 169(2), 420-431.
+\bibitem{Medians}
+\textsc{L. Aburub, G. Gyenizse}, Outer and inner medians in some small lattices. arXiv preprint arXiv:2603.17958, (2026).
+
+\end{thebibliography}
+
+
+\end{document}

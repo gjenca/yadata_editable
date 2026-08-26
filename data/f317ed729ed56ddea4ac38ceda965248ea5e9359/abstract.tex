@@ -1,0 +1,87 @@
+\documentclass[a4paper]{article} %
+
+\date{} %
+
+% Please, do not change any of the above lines
+
+\usepackage{amssymb} % add other LaTeX packages you need here.
+
+
+
+\begin{document}
+
+\setcounter{page}{1} % Please, do not delete this line
+
+% Your title
+\title{Star-Free Modules}
+
+% Authors
+\author{Milan~Lekár, Jan~Paseka,  Richard Smolka\\ %
+       Faculty of Science, Masaryk University\\
+%Brno, Czech Republic
+    \texttt{paseka@math.muni.cz} % Only one corresponding e-mail, please
+       }%
+
+\maketitle
+
+% The abstract
+
+
+
+Dynamic algebra provides an algebraic framework for expressing weakest preconditions of programs 
+and has been widely used in formal program verification. When one wishes to verify \emph{quantum} 
+programs, it is natural to extend dynamic algebra to settings where the underlying propositional 
+logic is not classical but quantum---that is, where the lattice of propositions is an 
+\emph{orthomodular lattice} rather than a Boolean algebra.
+
+Orthomodular lattices arise naturally in quantum mechanics: the closed subspaces of any Hilbert 
+space form a complete orthomodular lattice, the so-called Hilbert lattice. Crucially, 
+orthomodular lattices are in general non-distributive, which distinguishes quantum logic from 
+classical propositional logic and forces a careful re-examination of algebraic constructions 
+that are routine in the Boolean setting.
+
+A \emph{star-free dynamic orthomodular lattice} (introduced in \cite{Takagi}) is an orthomodular 
+lattice equipped with a necessity operator $\Box(a, p)$---read as ``$p$ holds after executing 
+program $a$''---for programs built from sequential composition, non-deterministic choice, 
+and tests, but \emph{without} the Kleene star. The Kleene star is excluded because its treatment 
+in the orthomodular/quantum setting raises substantial additional difficulties.
+
+The main result of \cite{Takagi} is a \emph{Stone-type representation theorem}: every star-free 
+dynamic orthomodular lattice embeds into its canonical extension, a complete star-free dynamic 
+orthomodular lattice constructed from the proper filters of the original one. This mirrors the 
+classical Stone representation of Boolean algebras by set algebras, and it establishes one half 
+of a discrete duality between star-free dynamic orthomodular lattices and the corresponding 
+Kripke-style frames (star-free dynamic orthomodular frames).
+
+The present paper develops a \emph{module-theoretic} perspective on this structure. Rather than 
+the necessity operator $\Box(a,p)$ of \cite{Takagi} (which corresponds to the \emph{weakest 
+precondition}), we work with a dual action $\ell(a,p)$ that propagates information 
+\emph{forward} along programs. The program terms form a term algebra $QA[\Pi, L]$ which, after 
+quotienting by the natural behavioural equivalence, yields a unital involutive $m$-semilattice 
+$S_{\mathbf{Dl}}$ acting on the orthomodular lattice $L$ (see \cite{BLP}). This algebraic structure is the 
+module-theoretic analogue of the complex algebras studied in \cite{Takagi}.
+
+A central subtlety---illustrated by a detailed example ---is that 
+the involution on programs does not descend to the naive quotient by behavioural equivalence of 
+forward actions alone. One must simultaneously track the behaviour of the dual program $a^*$, 
+leading to the strengthened equivalence $\approx_{\mathbf{Dl}}$. This phenomenon has a direct 
+counterpart in the frame semantics of \cite{Takagi}, where the self-adjointness axiom for 
+test relations plays an analogous role.
+
+
+
+
+\begin{thebibliography}{99}
+
+\bibitem{BLP}
+M.~Botur, J.~Paseka, M. Lekár,  
+\newblock \emph{Foulis m-semilattices and their modules,} 
+\newblock  In: {Proceedings of the 55th International Symposium on Multiple-Valued Logic (ISMVL 2025)}, pp. 196--201, IEEE (2025).
+\bibitem{Takagi}
+T.~Takagi.
+\newblock \emph{A Stone-type representation theorem for star-free dynamic   orthomodular lattice,}
+\newblock In: {Proceedings of the 56th International Symposium on Multiple-Valued Logic (ISMVL 2026)}, pp. 129--134, IEEE (2026). 
+
+\end{thebibliography}
+
+\end{document}

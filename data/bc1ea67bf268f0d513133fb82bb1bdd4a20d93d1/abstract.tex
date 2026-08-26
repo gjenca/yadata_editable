@@ -1,0 +1,60 @@
+\documentclass[a4paper]{article} %
+
+\date{} %
+
+% Please, do not change any of the above lines
+
+\usepackage{amssymb} % add other LaTeX packages you need here.
+
+\begin{document}
+\setcounter{page}{1} % Please, do not delete this line
+
+% Your title
+\title{Adjointable maps for graph theory}
+
+% Authors
+\author{Jakob Führer, Miloslav Štěpán \\ %
+       Johannes Kepler University Linz\\ \\ % Affiliation 1
+       % New author \\
+       % New affiliation \\
+       % Add authors and affiliation as needed
+       \texttt{miloslav.stepan@jku.at} % Only one corresponding e-mail, please
+       }%
+
+\maketitle
+
+Given graphs $(V,E), (V',E')$, a function $f: V \to V'$ is said to be \textit{adjointable} if there exists a function $g : V' \to V$ such that for all vertices $v \in V, v' \in V'$, we have:
+\[ f(v)v' \in E' \quad \iff \quad vg(v') \in E.\]
+
+This notion plays a significant role in the setting of Hilbert spaces and their associated projective geometries \cite{pv25}, \cite[Chapter 14]{ff13}, and a special case of a bijective $f$ that is equal to $g$ plays a role in the \textit{cancellation problem} for graphs, as described in \cite[Chapter 9]{hik11}.
+
+Despite the notion being elementary, the general case has not received much attention from the graph theory community. In this talk we give examples of adjointable maps between graphs, compare them to graph homomorphisms, mention their connection to perfect codes, and give results about the number of adjointable maps between graphs that are cycles and paths.
+
+
+
+Finally, we list some open problems that we find interesting.
+
+
+\begin{thebibliography}{99}
+
+
+\bibitem{ff13}
+Faure, Claude-Alain, and Alfred Frölicher.
+\newblock \emph{Modern projective geometry}.
+\newblock Springer Science \& Business Media, 2013.
+
+\bibitem{hik11}
+Hammack, Richard, Wilfried Imrich, and Sandi Klavžar.
+\newblock \emph{Handbook of product graphs}.
+\newblock CRC press, 2011.
+
+\bibitem{pv25}
+Paseka, Jan, and Thomas Vetterlein.
+\newblock "Categories of orthosets and adjointable maps."
+\newblock \emph{International Journal of Theoretical Physics} 64.6 (2025): 164.
+
+
+
+\end{thebibliography}
+
+\end{document}

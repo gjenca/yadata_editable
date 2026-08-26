@@ -1,0 +1,50 @@
+\documentclass[a4paper]{article} %
+
+\date{} %
+
+% Please, do not change any of the above lines
+
+\usepackage{amssymb} % add other LaTeX packages you need here.
+
+\begin{document}
+\setcounter{page}{1} % Please, do not delete this line
+
+% Your title
+\title{Direct Product of Directed Graphs of Algebraic Length 1}
+
+% Authors
+\author{Gerg\H{o} Gyenizse, Bernadett Nemes \\ %
+       University of Szeged\\ \\ % Affiliation 1
+       %Author 4 \\ % If any other author with different Affilation
+       %University of ZZWW\\ \\ % Affiliation 2 (if needed)
+       % New author \\
+       % New affiliation \\
+       % Add authors and affiliation as needed
+       \texttt{bernitamin@gmail.com} % Only one corresponding e-mail, please
+       }%
+
+\maketitle
+
+% The abstract
+
+Let $\mathbb{A}$ and $\mathbb{C}$ be finite directed graphs. Then $\mathbb{A}^\mathbb{C}$ denotes the directed graph with vertex set $A^C$ (the set of functions from $C$ to $A$), and edges defined as follows: for $f,g\in A^C$, $f\rightarrow g$ in $\mathbb{A}^\mathbb{C}$ iff $f(c_1)\rightarrow g(c_2)$ holds in $\mathbb{A}$ whenever $c_1\rightarrow c_2$ holds in $\mathbb{C}$. We then call $\mathbb{C}$ injective if $\mathbb{A}^{\mathbb{C}}\cong \mathbb{B}^{\mathbb{C}}$ implies $\mathbb{A}\cong \mathbb{B}$ for arbitrary finite directed graphs $\mathbb{A},\mathbb{B}$.
+
+In \cite{BernadettNemes_LL1} L\'{a}szl\'{o} Lov\'{a}sz proved that a directed graph which has $n$ vertices and contains a loop in every vertex but no other edges is injective. A variant of this injectivity problem for posets was solved by Ralph McKenzie in \cite{BernadettNemes_RM}.
+
+Examples of non-injective directed graphs are the bipartite ones and their natural generalizations, directed graphs which have algebraic length greater than 1, that is, there exists a $k>1$ such that the directed cycle of length $k$ is a homomorphic image of it. We do not know any other connected examples of non-injective graphs, so the question arises: Could directed graphs of algebraic length 1 and injective ones be the same among finite, connected directed graphs?  
+
+The class of injective directed graphs is closed under direct product, so we examined if the direct product of  connected directed graphs of algebraic length 1 also has a component of the same algebraic length. This problem was set as a task at the Schweitzer competition in 2025.
+
+\begin{thebibliography}{99}
+\bibitem{BernadettNemes_LL1}
+L.~Lov\'{a}sz.
+\newblock \emph{Operations with structures,}
+\newblock Acta Mathematica Academiae Scientiarum Hungaricae \textbf{18} 321--328. (1967)
+\bibitem{BernadettNemes_RM}
+R.~McKenzie.
+\newblock \emph{Arithmetic of Finite Ordered Sets: Cancellation of Exponents, II.,}
+\newblock Order \textbf{17} 309--332. (2000)
+
+\end{thebibliography}
+
+\end{document}

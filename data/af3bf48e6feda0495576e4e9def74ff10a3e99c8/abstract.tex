@@ -1,0 +1,87 @@
+\documentclass[a4paper]{article} %
+
+\date{} %
+
+% Please, do not change any of the above lines
+
+\usepackage{amsmath,amssymb,hyperref} % add other LaTeX packages you need here.
+
+\begin{document}
+\setcounter{page}{1} % Please, do not delete this line
+
+% Your title
+\title{Residuated partially ordered algebras,\\ logic and preclones}
+
+% Authors
+\author{Peter Jipsen \\ %
+       Chapman University, Orange, California, USA\\ \\ % Affiliation 1
+       \texttt{jipsen@chapman.edu} % Only one corresponding e-mail, please
+       }%
+
+\maketitle
+
+% The abstract
+
+
+%\subsection*{Abstract}
+\noindent
+In the first lecture we introduce partially ordered algebras with operations that are monotone or antitone in each argument. The standard examples are algebras of binary relations, residuated po-semigroups and residuated lattices, as well as many po-subvarieties and their connection with substructural logic and algebraic proof theory. 
+The second installment concentrates on the structure theory of residuated po-algebras, considering poset decompositions and po-Plonka sums. 
+In the last lecture we focus on the general theory of S-preclones for a finite monoid S, which generalizes clone theory to the po-algebra setting and beyond.
+
+In more detail, we aim to cover the following topics:
+
+\medskip
+
+\noindent
+\textbf{Lecture 1: Tonicities, inequational logic, and partially ordered varieties} (based on standard sources and joint work with Marta Bilkova and Melissa Sugimoto).
+We begin with the universal algebraic theory of partially ordered algebras ($\tau$-po-algebras) specified by a set $\mathcal F$ of function symbols and a tonicity $\tau: \mathcal F \to \{+, -\}^*$. This framework allows primitive operations to be monotone ($+$) or antitone ($-$) at specified argument positions, naturally capturing structures such as left-residuated po-monoids, residuated po-semigroups, residuated lattices, po-groups, tense posets, and algebras of binary relations. In this setting, inequational logic is treated as a 2-dimensional deductive system within Abstract Algebraic Logic (AAL). We consider $\tau$-preorders (the order analogues of congruences) and cover order-theoretic counterparts of the fundamental isomorphism and correspondence theorems, Birkhoff's subdirect representation theorem, and the order $\mathsf{H}\text{-}\mathsf{S}\text{-}\mathsf{P}$ and $\mathsf{S}\text{-}\mathsf{L}_{\to}\text{-}\mathsf{P}$ characterization theorems for $\tau$-povarieties and $\tau$-quasivarieties. We also discuss aspects of algebraizability of substructural logics and algebraic proof theory.
+
+\medskip
+
+\noindent
+\textbf{Lecture 2: Structure theory via po-P\l onka sums of residuated po-semigroups} (based on joint work with Stefano Bonzio, Jos\'e Gil-F\'erez, Adam P\v renosil, Melissa Sugimoto and Giuseppe Zecchini).
+The second lecture focuses on the structure theory of residuated partially ordered semigroups $\langle A, \leqslant, \cdot, \backslash, /\rangle$, where $x \cdot y \leqslant z \iff x \leqslant z/y \iff y \leqslant x \backslash z$. We investigate the role of positive central idempotents $p \in \mathrm{ZE}^+ \mathbf{A}$ ($a \leqslant pa = ap$ and $p^2 = p$) and balanced residuated semigroups (satisfying $x \backslash x \approx x / x =: 1_x$ and $y \leqslant 1_x y$). To reconstruct such algebras from their fibers $\mathbf{A}_p = \{a \in A : 1_a = p\}$, we generalize the classical P\l onka sum construction to \emph{semilattice-directed systems of metamorphisms} $\Xi = \{\xi_{pq}: \mathbf{A}_p \looparrowright \mathbf{A}_q : p \preccurlyeq q \in I\}$. Unlike homomorphisms, metamorphisms handle each operation and relation coordinatewise via distinct families of maps $\langle \varphi_{pq}, \psi_{pq}\rangle$. We establish compatibility conditions under which the reconstructed partial order
+\[
+a \leqslant b \iff \varphi_{pr}(a) \leqslant_r \psi_{qr}(b) \quad (\text{where } r = p \vee q)
+\]
+yields a valid po-algebra. This establishes that every \emph{steady} residuated semigroup decomposes into a po-P\l onka sum of integrally closed residuated monoids (and into Brouwerian semilattices in the idempotent commutative case).
+
+\medskip
+
+\noindent
+\textbf{Lecture 3: $S$-preclones, $S$-relations, and the ${}^S\mathrm{Pol}\text{--}{}^S\mathrm{Inv}$ Galois connection} (based on joint work with Erkko Lehtonen and Reinhard P\"oschel).
+In the final lecture, we present the general theory of $S$-preclones for an arbitrary finite monoid $S$ of signa, generalizing classical clone theory to signed operations. An $S$-operation $f: A^n \to A$ carries an argument signum $\mathrm{sgn}(f) = (s_1, \dots, s_n) \in S^n$. $S$-preclones are sets of $S$-operations containing the identity $\mathrm{id}_A$ and closed under cyclic shifts ($\zeta$), argument transpositions ($\tau$), addition of fictitious signed arguments ($\nabla^s$), identification of equal-signum arguments ($\Delta$), and composition ($\circ$). Dually, an $m$-ary $S$-relation is a family $\boldsymbol{\varrho} = (\varrho_s)_{s \in S}$ with $\varrho_s \subseteq A^m$. We introduce the $S$-preservation relation
+\[
+f \rhd^S \boldsymbol{\varrho} \iff \forall s \in S : f(\varrho_{s_1 s}, \dots, \varrho_{s_n s}) \subseteq \varrho_s
+\]
+and study the induced Galois connection ${}^S\mathrm{Pol}\text{--}{}^S\mathrm{Inv}$. For finite $A$, we prove the Galois closure theorems: ${}^S\langle F \rangle = {}^S\mathrm{Pol}\,{}^S\mathrm{Inv}\,F$ and ${}^S[Q] = {}^S\mathrm{Inv}\,{}^S\mathrm{Pol}\,Q$. Furthermore, we analyze the lattice ${}^S\mathcal{L}_A$ of all $S$-preclones on $A$, showing that it is atomic and coatomic with finitely many atoms and coatoms, explore embeddings of the classical clone lattice $\mathcal{L}_A$, and highlight the motivating case of $\pm$-preclones over the group $S = \{+, -\}$ characterizing monotone and antitone operations on posets.
+
+
+\begin{thebibliography}{99}
+
+\bibitem{BGJPS}
+S.~Bonzio, J.~Gil-F\'erez, P.~Jipsen, A.~P\v{r}enosil, and M.~Sugimoto.
+\newblock Balanced residuated partially ordered semigroups.
+\newblock \emph{preprint} \url{https://arxiv.org/abs/2505.12024}, 2025.
+
+\bibitem{JLP2024}
+P.~Jipsen, E.~Lehtonen, R.~P\"oschel.
+\newblock S-preclones and the Galois connection $^S$Pol--$^S$Inv, Part I.
+\newblock \emph{Algebra Universalis}, 85:34, 2024. \url{https://doi.org/10.1007/s00012-024-00863-7}
+
+\bibitem{JTV2021}
+P.~Jipsen, O.~Tuyt, and D.~Valota.
+\newblock The structure of finite commutative idempotent involutive residuated lattices.
+\newblock \emph{Algebra Universalis}, 82(4):57, 2021. 
+\url{https://digitalcommons.chapman.edu/scs_articles/736/}
+
+\bibitem{Pi04}
+D.~Pigozzi.
+\newblock Partially ordered varieties and quasivarieties.
+\newblock Technical report, Iowa State University, 2004. 
+\small\url{https://www.researchgate.net/publication/250226836_partially_ordered_varieties_and_quasivarieties}
+
+\end{thebibliography}
+
+\end{document}

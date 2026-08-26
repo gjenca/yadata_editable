@@ -1,0 +1,132 @@
+\documentclass[a4paper]{article} %
+\date{} %
+% Please, do not change any of the above lines
+\usepackage{amssymb} % add other LaTeX packages you need here.
+\usepackage{amsmath}
+\usepackage{bm}
+\newcommand{\al}[1]{\mathbf{#1}}
+\newcommand{\nmorph}{\curvearrowright}
+\newcommand{\sn}[1]{\mathrm{SN}\,\mathbf{#1}}
+\begin{document}
+\setcounter{page}{1} % Please, do not delete this line
+% Your title
+\title{Some new semidirect-product-type constructions of residuated lattices}
+% Authors
+\author{Michal Botur \\ %
+       Faculty of Science, Palack\'y University Olomouc\\ \\ % Affiliation
+       \texttt{michal.botur@upol.cz}
+       }%
+\maketitle
+% The abstract
+
+Representation theorems for residuated posets and residuated lattices are
+well understood in the presence of the classical axioms of \emph{divisibility}
+and \emph{prelinearity}: ordinal sums, poset products and the $\Gamma$-functor
+all rest on them. As soon as these axioms are dropped, the known
+representation techniques largely fail. We introduce two new
+associative product-type constructions --- inspired by wreath and
+semidirect products of semigroups --- for arbitrary \textbf{integral
+residuated lattices}, where neither commutativity nor divisibility is
+assumed.
+
+\medskip
+\noindent\textbf{Products via nuclei.}
+A closure operator $\gamma$ on an integral residuated lattice $\al A$ is a
+\emph{nucleus} if $\gamma(x)\cdot\gamma(y)\leq\gamma(x\cdot y)$; it is a
+\emph{strong nucleus} if, in addition,
+$\gamma(x)\backslash\gamma(y)=\gamma(x\backslash y)$ and
+$\gamma(x)/\gamma(y)=\gamma(x/y)$ for all $x,y\in A$. We write $\sn A$ for
+the set of all strong nuclei on $\al A$.
+
+\begin{quote}
+\textbf{Definition (J.~K\"uhr).}
+Let $\al A$ and $\al B$ be integral residuated lattices. A mapping
+$\bm\alpha\colon B\to\sn A$ is a \emph{nuclei-morphism} from $\al B$ to
+$\al A$, written $\bm\alpha\colon\al B\nmorph\al A$, if
+$$\bm\alpha[1]=I_A\qquad\text{and}\qquad
+\bm\alpha[x]\circ\bm\alpha[y]=\bm\alpha[x\wedge y]=\bm\alpha[x\cdot y]
+\qquad(x,y\in B).$$
+\end{quote}
+
+\begin{quote}
+\textbf{Theorem.}
+If $\bm\alpha\colon\al B\nmorph\al A$, then the algebra
+$\al A\ltimes_{\bm\alpha}\al B$ with universe
+$\sum_{x\in B}\bm\alpha[x]A$, unit $(1,1)$, componentwise lattice
+operations (taken in the nucleus images) and
+\begin{gather*}
+(a_1,b_1)\cdot(a_2,b_2)=\big(\bm\alpha[b_1\cdot b_2](a_1\cdot a_2),\,b_1\cdot b_2\big),\\
+(a_1,b_1)\backslash(a_2,b_2)=\big(a_1\backslash\bm\alpha[b_1](a_2),\,b_1\backslash b_2\big),\\
+(a_2,b_2)/(a_1,b_1)=\big(\bm\alpha[b_1](a_2)/a_1,\,b_2/b_1\big),
+\end{gather*}
+is again an integral residuated lattice.
+\end{quote}
+
+\begin{quote}
+\textbf{Theorem (Associativity).}
+Let $\al A,\al B,\al C$ be integral residuated lattices.
+\begin{itemize}
+\item[(i)] If $\bm\alpha\colon\al B\nmorph\al A$ and
+$\bm\beta\colon\al C\nmorph\al A\ltimes_{\bm\alpha}\al B$, then there are
+nuclei-morphisms $\overline{\bm\beta}\colon\al C\nmorph\al B$ and
+$\overline{\bm\alpha}\colon\al B\ltimes_{\overline{\bm\beta}}\al C
+\nmorph\al A$ such that
+$$(\al A\ltimes_{\bm\alpha}\al B)\ltimes_{\bm\beta}\al C\ \cong\
+\al A\ltimes_{\overline{\bm\alpha}}(\al B\ltimes_{\overline{\bm\beta}}\al C).$$
+\item[(ii)] Conversely, every such pair
+$(\overline{\bm\alpha},\overline{\bm\beta})$ arises from a unique pair
+$(\bm\alpha,\bm\beta)$ as in (i), and the two assignments are mutually
+inverse.
+\end{itemize}
+\end{quote}
+
+\medskip
+\noindent\textbf{Products via product morphisms.}
+A more general, purely order-theoretic construction avoids nuclei
+altogether.
+
+\begin{quote}
+\textbf{Definition.}
+A mapping $\phi\colon B\to A$ between integral residuated lattices $\al B$
+and $\al A$ is a \emph{product morphism} if
+$$\phi(1)=1,\qquad \phi(x)\wedge\phi(y)=\phi(x\wedge y),\qquad
+\phi(x)\cdot\phi(y)\leq\phi(x\cdot y)$$
+for all $x,y\in B$.
+\end{quote}
+
+\begin{quote}
+\textbf{Theorem.}
+For a product morphism $\phi\colon\al B\to\al A$ the algebra
+$$\al A\ltimes_\phi\al B=\Big(\textstyle\sum_{x\in B}(\phi(x)],\,\wedge,\,
+\vee,\,\cdot,\,\backslash,\,/,\,(1,1)\Big),$$
+with componentwise $\wedge,\vee,\cdot$ and
+$$(a,x)\bullet(b,y)=\big((a\bullet b)\wedge\phi(x\bullet y),\,x\bullet y\big)
+\qquad\text{for }\bullet\in\{\backslash,/\},$$
+is again an (integral) residuated lattice.
+\end{quote}
+
+\begin{quote}
+\textbf{Theorem (Associativity).}
+Let $\al A,\al B,\al C$ be integral residuated lattices. If
+$\phi\colon\al B\to\al A$ and $\psi\colon\al C\to\al A\ltimes_\phi\al B$
+are product morphisms, then there are product morphisms
+$\overline\psi\colon\al C\to\al B$ and
+$\overline\phi\colon\al B\ltimes_{\overline\psi}\al C\to\al A$ such that
+$$(\al A\ltimes_\phi\al B)\ltimes_\psi\al C\ \cong\
+\al A\ltimes_{\overline\phi}(\al B\ltimes_{\overline\psi}\al C),$$
+and, as before, every right-associated pair
+$(\overline\phi,\overline\psi)$ arises from a unique left-associated pair
+$(\phi,\psi)$ in this way.
+\end{quote}
+
+\begin{thebibliography}{99}
+\bibitem{botur2026}
+M.~Botur.
+\newblock \emph{A new representation of finite hoops using a new type of product of structures,}
+\newblock Studia Logica \textbf{114} (2026), 145--167; arXiv:2511.06730.
+\bibitem{glmo2007}
+N.~Galatos, P.~Jipsen, T.~Kowalski, H.~Ono.
+\newblock \emph{Residuated Lattices: An Algebraic Glimpse at Substructural Logics,}
+\newblock Studies in Logic and the Foundations of Mathematics \textbf{151}, Elsevier, 2007.
+\end{thebibliography}
+\end{document}

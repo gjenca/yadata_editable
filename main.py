@@ -28,7 +28,7 @@ from jinja2 import Environment,FileSystemLoader
 HOSTNAME=socket.gethostname()
 DEPLOYED=(HOSTNAME in ('www-kmadg','mpm')) and \
         pwd.getpwuid(os.getuid())[0]=='www-data'
-MAILNAME=({'www-kmadg':'math.sk','mpm':'mpm.svf.stuba.sk'})[HOSTNAME]
+MAILNAME={'www-kmadg':'math.sk','mpm':'mpm.svf.stuba.sk'}.get(HOSTNAME,'localhost')
 INFO_EMAIL='jenca'
 
 if DEPLOYED:

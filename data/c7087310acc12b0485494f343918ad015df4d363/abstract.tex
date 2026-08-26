@@ -1,0 +1,67 @@
+\documentclass[a4paper]{article} %
+
+\date{} %
+
+% Please, do not change any of the above lines
+
+\usepackage{amssymb} % add other LaTeX packages you need here.
+
+\begin{document}
+\setcounter{page}{1} % Please, do not delete this line
+
+% Your title
+\title{Maximal Set of Non-Isomorphic Lattices Represented by $\Delta$-Incidence Matrices Preserving $\left\lbrace 0,1 \right\rbrace$-Aggregation}
+
+% Authors
+\author{Zbyn\v{e}k Cerman \\ %
+       Tomas Bata University in Zl\'{i}n\\ \\ % Affiliation 1
+       % Author 4 \\ % If any other author with different Affilation
+       % University of ZZWW\\ \\ % Affiliation 2 (if needed)
+       % New author \\
+       % New affiliation \\
+       % Add authors and affiliation as needed
+       \texttt{cerman@utb.cz} % Only one corresponding e-mail, please
+       }%
+
+\maketitle
+
+% The abstract
+
+It is perfectly natural that nowadays we want to perform all computations using computers. However, especially in mathematics, we may encounter structures that are difficult to describe in a way that a computer can understand. One such structure is a lattice, which is an ordered set in which every pair of elements has a well-defined minimum and maximum.
+
+The aim of this paper is therefore to represent lattices using matrices, which computers are very good at working with, and then perform aggregations with them. For example, given two binary matrices of the same dimensions, we define their minimum and maximum as new matrices whose entries are the element-wise minimum or maximum – corresponding to logical conjunction (AND) and disjunction (OR), respectively. We apply such aggregation operations – particularly MIN and MAX – to matrices representing lattices of increasing size, starting with two-element lattices and progressing to larger ones. We will demonstrate that this task is not as straightforward as it might initially seem, as a number of challenges arise that even modern computational tools struggle to overcome. On the other hand, this approach opens up a completely new possibility: until now, we have only been able to perform aggregation within a single, specific lattice. But now, we can aggregate across different lattices themselves. We prove that for both the minimum and the maximum, there exist maximal closed sets of lattices, from which it follows that the “lattice of all equally-sized finite lattices” does not exist.
+
+\begin{thebibliography}{99}
+
+
+\bibitem{B2}
+D. Bredikhin.
+\newblock \emph{Representations of lattice terms by means of graphs}
+\newblock Acta Applicandae Mathematicae 52 (1-3), 247–251, 1998.
+
+\bibitem{C1} G. Czedli. \newblock \emph{The Matrix of a Slim Semimodular Lattice,} \newblock Order-A Journal on the Theory of Ordered Sets and Its Applications 29 (1), 85–103, 2012. 
+
+
+\bibitem{F1} P. A. Fejer. \newblock \emph{Lattice representations for computability theory,} \newblock Annals of Pure and Applied Logic 94 (1-3), 53–74, 1998.
+
+\bibitem{GMMP} M. Grabisch, J. L. Marichal, R. Mesiar, E. Pap. \newblock \emph{Aggregation functions,} \newblock Cambridge University Press, Cambridge 2009.
+
+\bibitem{GW} G. Gr\"{a}tzer, F. Wehrung. \newblock \emph{Lattice Theory: Special Topics and Applications, Volume 1,} \newblock Springer, Switzerland 2014.
+
+
+\bibitem{HN} M. Habib, L. Nourine. \newblock \emph{Representation of lattices via set-colored posets,} \newblock Discrete Applied Mathematics 249 (SI), 64–73, 2018.
+
+\bibitem{HW} R. Hemmecke, R. Weismantel. \newblock \emph{Representation of sets of lattice points,} \newblock SIAM Journal on Optimization 18 (1), 133–137, 2007.
+
+\bibitem{K2} M. Kobayashi. \newblock \emph{Matrix representation of meet-irreducible discrete copulas,} \newblock Fuzzy Sets and Systems 240, 117–130, 2014.
+
+\bibitem{KRR} Z. Kura\v{c}, T. Riemel, L. R\'{y}parov\'{a}. \newblock \emph{Transfer-stable aggregation functions on finite lattices,} \newblock Information Sciences 521 (2020), 88–106. 
+
+\bibitem{PB} P. E. Pattison, R. Breiger. \newblock \emph{Lattices and dimensional representations: matrix decompositions and ordering structures,} \newblock Social Networks 24 (4), 423–444, 2002. \bibitem{S1} D. K. Shenfeld. \newblock \emph{On semisimple representations of universal lattices,} \newblock Groups, Geometry, and Dynamics 4 (1), 179–193, 2010.
+
+
+\bibitem{YAZ} M. Yettou, A. Amroune, L. Zedam. \newblock \emph{A binary operation-based representation of a lattice,} \newblock Kybernetika 55 (2), 252–272, 2019.
+
+\end{thebibliography}
+
+\end{document}
