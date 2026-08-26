@@ -4,6 +4,8 @@
 PROJECT=yadata_editable
 #STATICDIR=/data/www/$PROJECT-static
 CODEDIR=/usr/local/lib/$PROJECT
+DATADIR_TALKS='/var/lib/ssaos_2026_abstracts'
+DATADIR_PARTICIPANTS='/var/lib/ssaos_2026_participants'
 
 
 #rm -r $CODEDIR
