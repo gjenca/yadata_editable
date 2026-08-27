@@ -134,6 +134,14 @@ def abstract(objid):
         abort(404)
     return Response(abstract,content_type='text/plain; charset=utf-8')
 
+def has_slides(objid):
+
+    try:
+        with open(slides_fnm(objid),'rb') as f:
+            return True
+    except FileNotFoundError:
+        return False
+
 @app.route('/slides/<objid>')
 def slides(objid):
     try:
