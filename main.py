@@ -444,7 +444,7 @@ def program_day(day_n):
     return t.render(day_name=day_name,program_day=program_day)
 
 
-days = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
+days = ('Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday')
 @app.route('/program')
 def program():
 
