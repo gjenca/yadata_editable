@@ -22,3 +22,4 @@
 creds.txt
 .claude/
 __pycache__/
+.venv/
