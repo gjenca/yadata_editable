@@ -436,7 +436,10 @@ def program_day(day_n):
 
     r=requests.get('https://www.math.sk/ssaos2026/program.yaml')
     talk_list=[]
-    for talk in yaml.safe_load_all(r.text):
+    # Use r.content (bytes): program.yaml is served without a charset, so
+    # r.text would guess the encoding and sometimes mis-decode accented
+    # letters as CJK. PyYAML defaults to UTF-8 for byte input.
+    for talk in yaml.safe_load_all(r.content):
         if talk['day_n']==day_n:
             talk_list.append(talk)
             talk['has_slides']=has_slides(talk['code'])
