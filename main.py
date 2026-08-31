@@ -29,7 +29,7 @@ HOSTNAME=socket.gethostname()
 DEPLOYED=(HOSTNAME in ('www-kmadg','mpm')) and \
         pwd.getpwuid(os.getuid())[0]=='www-data'
 MAILNAME={'www-kmadg':'math.sk','mpm':'mpm.svf.stuba.sk'}.get(HOSTNAME,'localhost')
-INFO_EMAIL='jenca'
+INFO_EMAIL='gejza.jenca+ssaos2026@stuba.sk'
 
 if DEPLOYED:
     DATADIR_TALKS='/var/lib/ssaos_2026_abstracts'
