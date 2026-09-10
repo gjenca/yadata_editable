@@ -23,6 +23,7 @@ flask_version=int(importlib.metadata.version('flask').split('.')[0])
 
 
 from flask import Flask,abort,request,redirect,flash,url_for,Response,send_file
+from markupsafe import escape
 from jinja2 import Environment,FileSystemLoader
 
 HOSTNAME=socket.gethostname()
@@ -119,6 +120,66 @@ def slides_fnm(objid):
     return f'{DATADIR_TALKS}/{objid}/slides.pdf'
 
 
+def send_info_email(subject,message,html,attachments=None):
+    """Send a notification e-mail to INFO_EMAIL, never raising.
+
+    If sending fails -- the usual reason is that the attached abstract or
+    slides make the message too big for the MTA -- try to send a second,
+    short message telling the organizer that the notification could not be
+    delivered, and why.  Returns True if the original mail went out.
+    """
+    try:
+        unicodemail.send(
+            from_=f'noreply@{MAILNAME}',
+            to=INFO_EMAIL,
+            cc='',
+            subject=subject,
+            message=message,
+            html=html,
+            attachments=attachments,
+        )
+        return True
+    except Exception as e:
+        reason=f'{type(e).__name__}: {e}'
+        app.logger.exception(f'sending of e-mail {subject!r} failed: {reason}')
+
+    described=[]
+    for attachment in attachments or []:
+        if isinstance(attachment,(tuple,list)):
+            described.append(f'{attachment[0]} ({len(attachment[1])} bytes)')
+        else:
+            described.append(str(attachment))
+    lines=[
+        'The following notification e-mail could not be sent:',
+        '',
+        f'    subject: {subject}',
+        f'    reason: {reason}',
+    ]
+    if described:
+        lines.append(f'    attachments: {", ".join(described)}')
+    lines+=['',
+        'The data was saved on the server, only the e-mail was lost.',
+        '',
+        'The original message follows:',
+        '',
+        message,
+    ]
+    text='\n'.join(lines)
+    try:
+        unicodemail.send(
+            from_=f'noreply@{MAILNAME}',
+            to=INFO_EMAIL,
+            cc='',
+            subject=f'SSAOS 2026 -- FAILED to send: {subject}',
+            message=text,
+            html=f'<html><body><pre>{escape(text)}</pre></body></html>',
+        )
+    except Exception as e2:
+        app.logger.exception(
+            f'sending of the failure report for {subject!r} failed too: '
+            f'{type(e2).__name__}: {e2}')
+    return False
+
 @app.route('/test_login')
 @auth.login_required
 def test_login():
@@ -203,10 +264,7 @@ def thanks_slides(objid):
             key_sanitized=obj['_key'].replace(':','_')
             with open(slides_fnm(objid),'rb') as f:
                 attachments.append((f'{key_sanitized}.pdf',f.read(),'application/pdf'))
-        unicodemail.send(
-            from_=f'noreply@{MAILNAME}',
-            to=INFO_EMAIL,
-            cc='',
+        send_info_email(
             subject=f'SSAOS 2026 -- {obj["participant"]} uploaded the slides',
             message=thanks_txt,
             html=thanks_html,
@@ -230,13 +288,10 @@ def thanks_arrival_departure(objid):
                         )
     if DEPLOYED:
         thanks_txt=t_txt.render(obj=obj)
-        unicodemail.send(
-            from_=f'noreply@{MAILNAME}',
-            to=INFO_EMAIL,
-            cc='',
+        send_info_email(
             subject=f'SSAOS 2026 -- {obj["_key"]} submitted arrival/departure info',
             message=thanks_txt,
-            html=thanks_html
+            html=thanks_html,
         )
     return thanks_html
 
@@ -294,10 +349,7 @@ def thanks(objid):
             key_sanitized=obj['_key'].replace(':','_')
             with open(abstract_fnm(objid),'rb') as f:
                 attachments.append((f'{key_sanitized}.tex',f.read(),'application/x-tex'))
-        unicodemail.send(
-            from_=f'noreply@{MAILNAME}',
-            to=INFO_EMAIL,
-            cc='',
+        send_info_email(
             subject=f'SSAOS 2026 -- {obj["participant"]} updated the talk information',
             message=thanks_txt,
             html=thanks_html,
