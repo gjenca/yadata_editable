@@ -30,7 +30,7 @@ HOSTNAME=socket.gethostname()
 DEPLOYED=(HOSTNAME in ('www-kmadg','mpm')) and \
         pwd.getpwuid(os.getuid())[0]=='www-data'
 MAILNAME={'www-kmadg':'math.sk','mpm':'mpm.svf.stuba.sk'}.get(HOSTNAME,'localhost')
-INFO_EMAIL='jenca'
+INFO_EMAIL='gejza.jenca+ssaos2026@stuba.sk'
 
 if DEPLOYED:
     DATADIR_TALKS='/var/lib/ssaos_2026_abstracts'
@@ -64,7 +64,7 @@ if DEPLOYED:
 else:
     app.logger.setLevel(logging.DEBUG)
 
-app.logger.debug('app created')
+#app.logger.debug('app created')
 
 auth = HTTPBasicAuth()
 
@@ -86,6 +86,18 @@ env=Environment(loader=FileSystemLoader(TEMPLATE_DIR),
 def construct_yaml_str(self, node):
     return self.construct_scalar(node)
 
+def get_talk_list():
+    
+    r=requests.get('https://www.math.sk/ssaos2026/program.yaml')
+    talk_list=[]
+    for talk in yaml.safe_load_all(r.content):
+        if talk['day_n']==day_n:
+            talk_list.append(talk)
+            talk['has_slides']=has_slides(talk['code'])
+            if talk['has_slides']:
+                    talk['slides_url']=url_for('slides',talk_key=talk['talk_key'])
+
+    return talk_list
 
 # Override the default string handling function
 # to always return unicode objects
@@ -203,8 +215,23 @@ def has_slides(objid):
     except FileNotFoundError:
         return False
 
-@app.route('/slides/<objid>')
-def slides(objid):
+def talk_key_to_objid(talk_key):
+
+    talk_list=get_talk_list()
+    for talk in talk_list:
+        if talk_key==talk['talk_key']:
+            return talk['code']
+    return None
+
+
+@app.route('/slides/<talk_key>')
+def slides(talk_key):
+
+    objid=talk_key_to_objid(talk_key)
+    fnm=slides_fnm(objid)
+    app.logger.debug(f'{fnm=}')
+    if not objid:
+        abort(404)
     try:
         with open(slides_fnm(objid),'rb') as f:
             slides=f.read()
@@ -251,13 +278,13 @@ def thanks_slides(objid):
     t_txt=env.get_template('thanks_slides.txt')
     thanks_html=t_html.render(obj=obj,have_slides=have_slides,slides_length=slides_length,
                     correct_url=url_for('slides_form',objid=objid),
-                    slides_url=url_for('slides',objid=objid),
+                    slides_url=url_for('slides',talk_key=obj['_key']),
                     program_url=url_for('program'),
                     )
     if DEPLOYED:
         thanks_txt=t_txt.render(obj=obj,have_slides=have_slides,slides_length=slides_length,
                         correct_url=url_for('slides_form',objid=objid),
-                        slides_url=url_for('slides',objid=objid),
+                        slides_url=url_for('slides',talk_key=obj['_key']),
                         )
         attachments=[]
         if have_slides:
@@ -398,7 +425,7 @@ def slides_form(objid):
                     error=error,
                     have_slides=have_slides,
                     slides_length=slides_length,
-                    slides_url=url_for('slides',objid=objid)
+                    slides_url=url_for('slides',talk_key=obj['_key'])
                     )
 
 @app.route('/abstract_form/<objid>',methods=["GET","POST"])
@@ -483,20 +510,22 @@ def all_data():
                 f.write(yaml.dump(datum,allow_unicode=True))
         return Response('201 Created',status=201)
 
+def get_talk_list():
+    
+    r=requests.get('https://www.math.sk/ssaos2026/program.yaml')
+    return list(yaml.safe_load_all(r.content))
+
 @app.route('/program_day/<int:day_n>')
 def program_day(day_n):
 
-    r=requests.get('https://www.math.sk/ssaos2026/program.yaml')
+    all_talks=get_talk_list()
     talk_list=[]
-    # Use r.content (bytes): program.yaml is served without a charset, so
-    # r.text would guess the encoding and sometimes mis-decode accented
-    # letters as CJK. PyYAML defaults to UTF-8 for byte input.
-    for talk in yaml.safe_load_all(r.content):
+    for talk in all_talks:
         if talk['day_n']==day_n:
             talk_list.append(talk)
             talk['has_slides']=has_slides(talk['code'])
             if talk['has_slides']:
-                    talk['slides_url']=url_for('slides',objid=talk['code'])
+                    talk['slides_url']=url_for('slides',talk_key=talk['talk_key'])
     day_name=talk_list[0]['day_name']
     program_day={}
     for talk in talk_list:
