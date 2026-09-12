@@ -1,0 +1,6 @@
+The participant deleted the previously uploaded presentation PDF.
+# for key in ['title','presented_by']
+{{key}} = {{obj[key]}}
+# endfor
+
+A new PDF can be uploaded here: https://mpm.svf.stuba.sk{{upload_url}}

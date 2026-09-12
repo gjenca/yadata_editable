@@ -299,6 +299,30 @@ def thanks_slides(objid):
         )
     return thanks_html
 
+@app.route('/thanks_slides_deleted/<objid>')
+def thanks_slides_deleted(objid):
+
+    try:
+        with open(yaml_talk_fnm(objid)) as f:
+            obj=yaml.load(f,Loader=yaml.Loader)
+    except FileNotFoundError:
+        abort(404)
+    t_html=env.get_template('thanks_slides_deleted.html')
+    t_txt=env.get_template('thanks_slides_deleted.txt')
+    thanks_html=t_html.render(obj=obj,
+                    upload_url=url_for('slides_form',objid=objid),
+                    )
+    if DEPLOYED:
+        thanks_txt=t_txt.render(obj=obj,
+                        upload_url=url_for('slides_form',objid=objid),
+                        )
+        send_info_email(
+            subject=f'SSAOS 2026 -- {obj["participant"]} deleted the slides',
+            message=thanks_txt,
+            html=thanks_html,
+        )
+    return thanks_html
+
 @app.route('/thanks_arrival_departure/<objid>')
 def thanks_arrival_departure(objid):
 
@@ -425,7 +449,40 @@ def slides_form(objid):
                     error=error,
                     have_slides=have_slides,
                     slides_length=slides_length,
-                    slides_url=url_for('slides',talk_key=obj['_key'])
+                    slides_url=url_for('slides',talk_key=obj['_key']),
+                    delete_slides_url=url_for('delete_slides_form',objid=objid),
+                    )
+
+@app.route('/delete_slides_form/<objid>',methods=["GET","POST"])
+def delete_slides_form(objid):
+    """Ask for confirmation, then delete the uploaded slides."""
+
+    t=env.get_template('talk_slides_delete_form.html')
+    try:
+        with open(yaml_talk_fnm(objid)) as f:
+            obj=yaml.load(f,Loader=yaml.Loader)
+    except FileNotFoundError:
+        abort(404)
+    try:
+        st=os.stat(slides_fnm(objid))
+        have_slides=True
+        slides_length=st.st_size
+    except FileNotFoundError:
+        have_slides=False
+        slides_length=-1
+    if request.method=='POST':
+        if not have_slides:
+            return redirect(url_for('slides_form',objid=objid))
+        try:
+            os.remove(slides_fnm(objid))
+        except FileNotFoundError:
+            pass
+        return redirect(url_for('thanks_slides_deleted',objid=objid))
+    return t.render(obj=obj,
+                    have_slides=have_slides,
+                    slides_length=slides_length,
+                    slides_url=url_for('slides',talk_key=obj['_key']),
+                    back_url=url_for('slides_form',objid=objid),
                     )
 
 @app.route('/abstract_form/<objid>',methods=["GET","POST"])
