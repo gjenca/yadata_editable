@@ -1,0 +1,14 @@
+# Runtime dependencies for yadata_editable.
+#   .venv/bin/pip install -r requirements.txt
+# Lower bounds only -- there is no frozen environment to pin against.
+
+Flask>=2.0            # main.py branches on the Flask major version (2 vs 3)
+Flask-HTTPAuth>=4.0   # HTTPBasicAuth for /test_login and /data_yaml
+PyYAML>=6.0           # every record is a data.yaml
+requests>=2.25        # fetches the external program.yaml
+gunicorn>=20.0        # imported unconditionally by main.py; also the WSGI server
+
+# Pulled in by Flask, but imported directly as well:
+Jinja2>=3.0
+MarkupSafe>=2.0
+Werkzeug>=2.0         # ProxyFix, when DEPLOYED
