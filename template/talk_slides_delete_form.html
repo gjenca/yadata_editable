@@ -1,0 +1,25 @@
+# extends "base_form.html"
+# block body
+  <div class="form-container">
+# if have_slides
+    <h2>Do you really want to delete your presentation PDF?</h2>
+       	<ul>
+	<li><b>Talk:</b>{{obj.title}}</li>
+	<li><b>Presented by:</b>{{obj.presented_by}}</li>
+	<li>The length of the currently uploaded file is {{slides_length}} bytes,
+	you may still <a href="{{slides_url}}">download it</a>.</li>
+	<li>Deleting the file cannot be undone, but you can always upload
+	a new presentation PDF later.</li>
+	</ul>
+    <form method="POST">
+      <div class="input-field">
+        <input type="submit" value="Yes, delete my presentation PDF">
+      </div>
+    </form>
+    <p><a href="{{back_url}}">No, keep the file &mdash; go back</a></p>
+# else
+    <h2>There is no presentation PDF to delete</h2>
+    <p><a href="{{back_url}}">Go back to the upload form</a></p>
+# endif
+  </div>
+# endblock
