@@ -168,7 +168,7 @@ def slides(talk_key):
 
     objid=talk_key_to_objid(talk_key)
     fnm=slides_fnm(objid)
-    app.logger.debug(f'{fnm=}')
+    #app.logger.debug(f'{fnm=}')
     if not objid:
         abort(404)
     try:
